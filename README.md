@@ -1,27 +1,23 @@
-# food-cost-breakdown
+# Food Cost Breakdown / Calculadora de Escandallos
 
-This template should help get you started developing with Vue 3 in Vite.
+A web application for calculating food costs and recipe profitability. This tool helps restaurants, chefs, and food businesses break down the cost of their dishes by analyzing individual ingredient costs, portions, and pricing.
 
-## Recommended IDE Setup
+## Features (Planned)
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Create and manage recipes with multiple ingredients
+- Calculate cost per portion/serving
+- Calculate profit margins and suggested selling prices
+- Multi-language support (English/Spanish)
 
-## Recommended Browser Setup
+## Tech Stack
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
+- Vue 3 with Composition API
+- TypeScript
+- Vite
+- Vitest for testing
+- Oxlint
+- ESLint
+- Prettier
 
 ## Project Setup
 
@@ -29,13 +25,13 @@ See [Vite Configuration Reference](https://vite.dev/config/).
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Compile and Hot-Reload for development
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Type-Check, compile, and minify for production
 
 ```sh
 npm run build
@@ -44,7 +40,7 @@ npm run build
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
 
 ```sh
-npm run test:unit
+npm run test
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
