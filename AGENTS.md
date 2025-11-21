@@ -70,6 +70,20 @@ The project uses multiple linting tools:
 - Vitest for testing
 - Oxlint + ESLint for linting
 - Prettier for formatting
+- Vue I18n for internationalization
+
+### Internationalization (i18n)
+
+The project uses Vue I18n with global injection enabled for multi-language support (English/Spanish).
+
+**Configuration:**
+- i18n setup: `src/i18n/index.ts`
+- Translation files: `src/i18n/locales/en.ts` and `src/i18n/locales/es.ts`
+- Browser language detection is enabled (falls back to English)
+
+**Usage in components:**
+- Use `$t()` directly in templates: `{{ $t('key.name') }}`
+- Do NOT use the composition API (`useI18n()`)
 
 ## Feature Requirements
 
