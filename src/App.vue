@@ -1,8 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import AppLayout from './components/AppLayout.vue'
+</script>
 
 <template>
-  <h1>{{ $t('app.title') }}</h1>
-  <p>{{ $t('app.description') }}</p>
+  <AppLayout>
+    <div class="space-y-8">
+      <div class="space-y-2">
+        <p class="text-lg text-muted-foreground max-w-2xl">
+          {{ $t('app.description') }}
+        </p>
+      </div>
+    </div>
+  </AppLayout>
 </template>
-
-<style scoped></style>
