@@ -71,19 +71,32 @@ The project uses multiple linting tools:
 - Oxlint + ESLint for linting
 - Prettier for formatting
 - Vue I18n for internationalization
+- shadcn-vue for UI components
+- Tailwind CSS v4 for styling
 
 ### Internationalization (i18n)
 
 The project uses Vue I18n with global injection enabled for multi-language support (English/Spanish).
 
 **Configuration:**
+
 - i18n setup: `src/i18n/index.ts`
 - Translation files: `src/i18n/locales/en.ts` and `src/i18n/locales/es.ts`
 - Browser language detection is enabled (falls back to English)
 
 **Usage in components:**
+
 - Use `$t()` directly in templates: `{{ $t('key.name') }}`
 - Do NOT use the composition API (`useI18n()`)
+
+### UI Components (shadcn-vue)
+
+The project uses shadcn-vue for accessible, customizable UI components built on top of Radix Vue and styled with Tailwind CSS v4.
+
+**Usage:**
+
+- Install components using: `npx shadcn-vue@latest add [component-name]`
+- Import components from `@/components/ui/`
 
 ## Feature Requirements
 

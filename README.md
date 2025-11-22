@@ -19,9 +19,11 @@ This project was built using vibe coding: iterating fast, focusing on functional
 - TypeScript
 - Vite
 - Vitest for testing
-- Oxlint
-- ESLint
-- Prettier
+- Oxlint + ESLint for linting
+- Prettier for formatting
+- Vue I18n for internationalization
+- shadcn-vue for UI components
+- Tailwind CSS v4 for styling
 
 ## Project Setup
 
