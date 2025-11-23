@@ -10,6 +10,7 @@ const getBrowserLocale = (): string => {
 }
 
 const i18n = createI18n({
+  legacy: false,
   locale: getBrowserLocale(),
   fallbackLocale: 'en',
   globalInjection: true,

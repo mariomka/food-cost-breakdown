@@ -76,7 +76,7 @@ The project uses multiple linting tools:
 
 ### Internationalization (i18n)
 
-The project uses Vue I18n with global injection enabled for multi-language support (English/Spanish).
+The project uses Vue I18n with the Composition API for multi-language support (English/Spanish).
 
 **Configuration:**
 
@@ -86,8 +86,8 @@ The project uses Vue I18n with global injection enabled for multi-language suppo
 
 **Usage in components:**
 
-- Use `$t()` directly in templates: `{{ $t('key.name') }}`
-- Do NOT use the composition API (`useI18n()`)
+- Use the Composition API with `useI18n()` in the script setup
+- In templates, use the `t()` function: `{{ t('key.name') }}`
 
 ### UI Components (shadcn-vue)
 
