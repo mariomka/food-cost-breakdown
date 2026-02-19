@@ -1,20 +1,16 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
 import AppLayout from '@/components/AppLayout.vue'
-
-const { t } = useI18n()
+import IngredientPanel from '@/components/IngredientPanel.vue'
 </script>
 
 <template>
   <AppLayout>
     <template #ingredients>
-      <div class="rounded-lg border border-warm-200 bg-white p-6">
-        <p class="text-sm text-warm-400">{{ t('ingredients.empty') }}</p>
-      </div>
+      <IngredientPanel />
     </template>
     <template #recipes>
       <div class="rounded-lg border border-warm-200 bg-white p-6">
-        <p class="text-sm text-warm-400">{{ t('recipes.empty') }}</p>
+        <p class="text-sm text-warm-400">Recipes coming soon...</p>
       </div>
     </template>
   </AppLayout>
