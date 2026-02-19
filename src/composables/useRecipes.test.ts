@@ -44,6 +44,34 @@ describe('useRecipes', () => {
     expect(getRecipe('non-existent')).toBeUndefined()
   })
 
+  it('updates a recipe', () => {
+    const { recipes, addRecipe, updateRecipe } = useRecipes()
+    addRecipe('Bread', [], 30, 4)
+    const id = recipes.value[0]!.id
+    updateRecipe(id, { name: 'Sourdough Bread', targetMargin: 40 })
+    expect(recipes.value[0]!.name).toBe('Sourdough Bread')
+    expect(recipes.value[0]!.targetMargin).toBe(40)
+    expect(recipes.value[0]!.servings).toBe(4)
+  })
+
+  it('removes ingredient from all recipes', () => {
+    const { recipes, addRecipe, removeIngredientFromAllRecipes } = useRecipes()
+    addRecipe('Bread', [{ ingredientId: 'ing-1', quantity: 0.5, unit: 'kg' }], 30, 4)
+    addRecipe(
+      'Cake',
+      [
+        { ingredientId: 'ing-1', quantity: 0.3, unit: 'kg' },
+        { ingredientId: 'ing-2', quantity: 0.2, unit: 'L' },
+      ],
+      40,
+      8,
+    )
+    removeIngredientFromAllRecipes('ing-1')
+    expect(recipes.value[0]!.ingredients).toHaveLength(0)
+    expect(recipes.value[1]!.ingredients).toHaveLength(1)
+    expect(recipes.value[1]!.ingredients[0]!.ingredientId).toBe('ing-2')
+  })
+
   it('shares state across calls (singleton)', () => {
     const { addRecipe } = useRecipes()
     addRecipe('Bread', [], 30, 4)

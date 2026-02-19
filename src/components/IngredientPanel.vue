@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { useIngredients } from '@/composables/useIngredients'
+import { useRecipes } from '@/composables/useRecipes'
 import IngredientForm from './IngredientForm.vue'
 import IngredientItem from './IngredientItem.vue'
 import { Separator } from '@/components/ui/separator'
 
 const { t } = useI18n()
 const { ingredients, removeIngredient } = useIngredients()
+const { removeIngredientFromAllRecipes } = useRecipes()
+
+function handleDelete(id: string) {
+  removeIngredientFromAllRecipes(id)
+  removeIngredient(id)
+}
 </script>
 
 <template>
@@ -36,7 +43,7 @@ const { ingredients, removeIngredient } = useIngredients()
           v-for="ingredient in ingredients"
           :key="ingredient.id"
           :ingredient="ingredient"
-          @delete="removeIngredient"
+          @delete="handleDelete"
         />
       </TransitionGroup>
     </Transition>

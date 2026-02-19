@@ -16,6 +16,12 @@ export function useIngredients() {
     })
   }
 
+  function updateIngredient(id: string, updates: Partial<Omit<Ingredient, 'id'>>) {
+    const index = ingredients.value.findIndex((i) => i.id === id)
+    if (index === -1) return
+    ingredients.value[index] = { ...ingredients.value[index]!, ...updates }
+  }
+
   function removeIngredient(id: string) {
     ingredients.value = ingredients.value.filter((i) => i.id !== id)
   }
@@ -27,6 +33,7 @@ export function useIngredients() {
   return {
     ingredients,
     addIngredient,
+    updateIngredient,
     removeIngredient,
     getIngredient,
   }

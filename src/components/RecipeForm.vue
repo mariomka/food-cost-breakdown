@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import type { UnitType, RecipeIngredient } from '@/types'
+import type { RecipeIngredient } from '@/types'
 import { useIngredients } from '@/composables/useIngredients'
 import { useRecipes } from '@/composables/useRecipes'
 import { useCostCalculations } from '@/composables/useCostCalculations'
@@ -25,21 +25,21 @@ const name = ref('')
 const servings = ref<number | undefined>()
 const targetMargin = ref<number | undefined>()
 
-const recipeIngredients = ref<(RecipeIngredient & { tempUnit: UnitType })[]>([])
+const recipeIngredients = ref<RecipeIngredient[]>([])
 const selectedIngredientId = ref('')
 
-const units: UnitType[] = ['kg', 'g', 'L', 'mL', 'unit']
-
-function addRecipeIngredient() {
-  if (!selectedIngredientId.value) return
-  const ingredient = getIngredient(selectedIngredientId.value)
+// Auto-add ingredient when selected
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function onIngredientSelected(value: string | number | bigint | Record<string, any> | null) {
+  if (!value || typeof value !== 'string') return
+  const ingredientId = value
+  const ingredient = getIngredient(ingredientId)
   if (!ingredient) return
 
   recipeIngredients.value.push({
-    ingredientId: selectedIngredientId.value,
+    ingredientId,
     quantity: 0,
     unit: ingredient.unit,
-    tempUnit: ingredient.unit,
   })
   selectedIngredientId.value = ''
 }
@@ -47,6 +47,15 @@ function addRecipeIngredient() {
 function removeRecipeIngredient(index: number) {
   recipeIngredients.value.splice(index, 1)
 }
+
+// Remove recipe ingredients when their source ingredient is deleted
+watch(
+  () => ingredients.value.map((i) => i.id),
+  (currentIds) => {
+    const idSet = new Set(currentIds)
+    recipeIngredients.value = recipeIngredients.value.filter((ri) => idSet.has(ri.ingredientId))
+  },
+)
 
 const totalCost = computed(() => {
   return getTotalCost(recipeIngredients.value, (id) => getIngredient(id))
@@ -108,20 +117,17 @@ function handleSubmit() {
 
     <Separator />
 
-    <!-- Add ingredient to recipe -->
-    <div class="flex gap-2">
-      <Select v-model="selectedIngredientId" class="flex-1">
-        <SelectTrigger data-test="recipe-ingredient-select">
-          <SelectValue :placeholder="t('recipes.selectIngredient')" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem v-for="ing in availableIngredients" :key="ing.id" :value="ing.id">
-            {{ ing.name }}
-          </SelectItem>
-        </SelectContent>
-      </Select>
-      <Button type="button" variant="outline" size="sm" @click="addRecipeIngredient">+</Button>
-    </div>
+    <!-- Add ingredient to recipe — auto-adds on select -->
+    <Select v-model="selectedIngredientId" @update:model-value="onIngredientSelected">
+      <SelectTrigger data-test="recipe-ingredient-select">
+        <SelectValue :placeholder="t('recipes.selectIngredient')" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem v-for="ing in availableIngredients" :key="ing.id" :value="ing.id">
+          {{ ing.name }}
+        </SelectItem>
+      </SelectContent>
+    </Select>
 
     <!-- Recipe ingredients list -->
     <div v-if="recipeIngredients.length > 0" class="space-y-2" data-test="recipe-ingredients-list">
@@ -142,16 +148,7 @@ function handleSubmit() {
           class="w-20"
           placeholder="Qty"
         />
-        <Select v-model="ri.unit" class="w-20">
-          <SelectTrigger>
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem v-for="u in units" :key="u" :value="u">
-              {{ t(`units.${u}`) }}
-            </SelectItem>
-          </SelectContent>
-        </Select>
+        <span class="w-12 text-center text-xs text-warm-400">{{ t(`units.${ri.unit}`) }}</span>
         <Button
           type="button"
           variant="ghost"

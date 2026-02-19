@@ -44,6 +44,24 @@ describe('useIngredients', () => {
     expect(getIngredient('non-existent')).toBeUndefined()
   })
 
+  it('updates an ingredient', () => {
+    const { ingredients, addIngredient, updateIngredient } = useIngredients()
+    addIngredient('Flour', 2.5, 1, 'kg')
+    const id = ingredients.value[0]!.id
+    updateIngredient(id, { name: 'Whole Wheat Flour', price: 3.0 })
+    expect(ingredients.value[0]!.name).toBe('Whole Wheat Flour')
+    expect(ingredients.value[0]!.price).toBe(3.0)
+    expect(ingredients.value[0]!.quantity).toBe(1)
+  })
+
+  it('does nothing when updating non-existent ingredient', () => {
+    const { ingredients, addIngredient, updateIngredient } = useIngredients()
+    addIngredient('Flour', 2.5, 1, 'kg')
+    updateIngredient('non-existent', { name: 'Nope' })
+    expect(ingredients.value).toHaveLength(1)
+    expect(ingredients.value[0]!.name).toBe('Flour')
+  })
+
   it('shares state across calls (singleton)', () => {
     const { addIngredient } = useIngredients()
     addIngredient('Flour', 2.5, 1, 'kg')

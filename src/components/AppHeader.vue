@@ -17,24 +17,57 @@ const { t, locale } = useI18n()
     <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
       <div class="flex items-center gap-3">
         <div
-          class="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-amber-500 to-terracotta-500 text-white shadow-sm"
+          class="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-amber-500 to-terracotta-500 shadow-sm"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="h-5 w-5"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="h-6 w-6">
+            <!-- Pan base -->
+            <ellipse cx="16" cy="22" rx="10" ry="4" fill="rgba(255,255,255,0.25)" />
+            <ellipse cx="16" cy="21" rx="10" ry="4" fill="white" />
+            <!-- Pan handle -->
+            <rect x="25" y="19.5" width="5" height="3" rx="1.5" fill="rgba(255,255,255,0.7)" />
+            <!-- Coin stack in pan -->
+            <ellipse cx="16" cy="19" rx="5" ry="2" fill="#f59e0b" />
+            <rect x="11" y="17" width="10" height="2" fill="#f59e0b" />
+            <ellipse cx="16" cy="17" rx="5" ry="2" fill="#fbbf24" />
+            <rect x="11" y="15" width="10" height="2" fill="#fbbf24" />
+            <ellipse cx="16" cy="15" rx="5" ry="2" fill="#fcd34d" />
+            <!-- Dollar sign on top coin -->
+            <text
+              x="16"
+              y="17"
+              text-anchor="middle"
+              font-size="5"
+              font-weight="bold"
+              fill="#92400e"
+              font-family="sans-serif"
+            >
+              $
+            </text>
+            <!-- Steam wisps -->
             <path
-              d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"
+              d="M11 12 Q10 9 11 7"
+              stroke="white"
+              stroke-width="1"
+              fill="none"
+              opacity="0.6"
+              stroke-linecap="round"
             />
-            <path d="M10 21h4" />
-            <path d="M12 6v2" />
-            <path d="M10 8h4" />
+            <path
+              d="M16 11 Q15 8 16 6"
+              stroke="white"
+              stroke-width="1"
+              fill="none"
+              opacity="0.5"
+              stroke-linecap="round"
+            />
+            <path
+              d="M21 12 Q20 9 21 7"
+              stroke="white"
+              stroke-width="1"
+              fill="none"
+              opacity="0.6"
+              stroke-linecap="round"
+            />
           </svg>
         </div>
         <div>
