@@ -123,12 +123,12 @@ function handleClick() {
   <form
     v-if="editing"
     data-test="recipe-edit-form"
-    class="space-y-3 rounded-lg border-2 border-terracotta-300 bg-terracotta-50/30 p-4"
+    class="space-y-3 rounded-lg border border-terracotta-200 bg-terracotta-50/20 p-4"
     @submit.prevent="saveEdit"
   >
     <div class="mb-1 flex items-center gap-2">
       <span
-        class="rounded-full bg-terracotta-100 px-2 py-0.5 text-xs font-medium text-terracotta-600"
+        class="rounded-full bg-terracotta-100 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-terracotta-600 uppercase"
       >
         {{ t('recipes.editing') }}
       </span>
@@ -173,7 +173,7 @@ function handleClick() {
       <div
         v-for="(ri, index) in editIngredients"
         :key="ri.ingredientId"
-        class="flex items-center gap-2 rounded border border-warm-200 bg-white px-2 py-1.5"
+        class="flex items-center gap-2 rounded border border-warm-200/60 bg-white px-2 py-1.5"
       >
         <span class="min-w-0 flex-1 truncate text-xs text-warm-700">
           {{ getIngredient(ri.ingredientId)?.name }}
@@ -200,21 +200,22 @@ function handleClick() {
     </div>
 
     <!-- Live cost -->
-    <div
-      v-if="editIngredients.length > 0"
-      class="rounded-md border border-amber-200 bg-amber-50 p-2 text-xs"
-    >
-      <div class="flex justify-between">
-        <span class="text-warm-600">{{ t('recipes.totalCost') }}</span>
-        <span class="font-semibold text-warm-800">${{ editTotalCost.toFixed(2) }}</span>
+    <div v-if="editIngredients.length > 0" class="rounded-md bg-warm-50 p-2 text-xs">
+      <div class="flex justify-between py-0.5">
+        <span class="text-warm-500">{{ t('recipes.totalCost') }}</span>
+        <span class="font-medium tabular-nums text-warm-700">${{ editTotalCost.toFixed(2) }}</span>
       </div>
-      <div class="flex justify-between">
-        <span class="text-warm-600">{{ t('recipes.costPerServing') }}</span>
-        <span class="font-semibold text-warm-800">${{ editCostPerServing.toFixed(2) }}</span>
+      <div class="flex justify-between py-0.5">
+        <span class="text-warm-500">{{ t('recipes.costPerServing') }}</span>
+        <span class="font-medium tabular-nums text-warm-700"
+          >${{ editCostPerServing.toFixed(2) }}</span
+        >
       </div>
-      <div class="flex justify-between">
-        <span class="text-warm-600">{{ t('recipes.suggestedPrice') }}</span>
-        <span class="font-bold text-amber-700">${{ editSuggestedPrice.toFixed(2) }}</span>
+      <div class="mt-1 flex justify-between border-t border-warm-200 pt-1">
+        <span class="font-medium text-warm-600">{{ t('recipes.suggestedPrice') }}</span>
+        <span class="font-semibold tabular-nums text-amber-700"
+          >${{ editSuggestedPrice.toFixed(2) }}</span
+        >
       </div>
     </div>
 
@@ -250,27 +251,31 @@ function handleClick() {
       <TooltipTrigger as-child>
         <div
           data-test="recipe-item"
-          class="cursor-pointer rounded-lg border border-warm-200 bg-white p-4 transition-colors hover:border-terracotta-200 hover:bg-terracotta-50/30"
+          class="group cursor-pointer rounded-lg border border-warm-200/60 bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all hover:border-warm-300 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
           @click="handleClick"
         >
           <div class="mb-3 flex items-start justify-between">
             <h3 class="font-display text-lg text-warm-800">{{ recipe.name }}</h3>
-            <span class="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
+            <span
+              class="rounded-full bg-warm-100 px-2 py-0.5 text-[11px] font-medium tabular-nums text-warm-500"
+            >
               {{ recipe.servings }} {{ t('recipes.servings').toLowerCase() }}
             </span>
           </div>
           <div class="space-y-1 text-sm">
-            <div class="flex justify-between text-warm-500">
-              <span>{{ t('recipes.totalCost') }}</span>
-              <span class="text-warm-700">${{ totalCost.toFixed(2) }}</span>
+            <div class="flex justify-between">
+              <span class="text-warm-400">{{ t('recipes.totalCost') }}</span>
+              <span class="tabular-nums text-warm-600">${{ totalCost.toFixed(2) }}</span>
             </div>
-            <div class="flex justify-between text-warm-500">
-              <span>{{ t('recipes.costPerServing') }}</span>
-              <span class="text-warm-700">${{ costPerServing.toFixed(2) }}</span>
+            <div class="flex justify-between">
+              <span class="text-warm-400">{{ t('recipes.costPerServing') }}</span>
+              <span class="tabular-nums text-warm-600">${{ costPerServing.toFixed(2) }}</span>
             </div>
-            <div class="flex justify-between font-medium">
-              <span class="text-warm-600">{{ t('recipes.suggestedPrice') }}</span>
-              <span class="text-amber-700">${{ suggestedPrice.toFixed(2) }}</span>
+            <div class="flex justify-between border-t border-warm-100 pt-1.5">
+              <span class="font-medium text-warm-600">{{ t('recipes.suggestedPrice') }}</span>
+              <span class="font-semibold tabular-nums text-amber-700"
+                >${{ suggestedPrice.toFixed(2) }}</span
+              >
             </div>
           </div>
         </div>

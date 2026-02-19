@@ -34,7 +34,11 @@ function handleSubmit() {
 </script>
 
 <template>
-  <form data-test="ingredient-form" class="space-y-3" @submit.prevent="handleSubmit">
+  <form
+    data-test="ingredient-form"
+    class="space-y-3 rounded-lg border border-warm-200/80 bg-white p-4 shadow-sm"
+    @submit.prevent="handleSubmit"
+  >
     <Input
       v-model="name"
       data-test="ingredient-name"

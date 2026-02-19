@@ -3,20 +3,18 @@ import { useI18n } from 'vue-i18n'
 import { useRecipes } from '@/composables/useRecipes'
 import RecipeForm from './RecipeForm.vue'
 import RecipeItem from './RecipeItem.vue'
-import { Separator } from '@/components/ui/separator'
 
 const { t } = useI18n()
 const { recipes, removeRecipe } = useRecipes()
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="space-y-5">
     <RecipeForm />
-    <Separator />
     <Transition name="fade" mode="out-in">
-      <div v-if="recipes.length === 0" class="py-12 text-center">
+      <div v-if="recipes.length === 0" class="py-14 text-center">
         <div
-          class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-warm-100"
+          class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-warm-100"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +22,7 @@ const { recipes, removeRecipe } = useRecipes()
             fill="none"
             stroke="currentColor"
             stroke-width="1.5"
-            class="h-6 w-6 text-warm-400"
+            class="h-5 w-5 text-warm-300"
           >
             <path d="M4 19h16M4 15h16M8 11h8M10 7h4" stroke-linecap="round" />
           </svg>

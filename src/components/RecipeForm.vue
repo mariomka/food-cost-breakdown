@@ -94,7 +94,11 @@ function handleSubmit() {
 </script>
 
 <template>
-  <form data-test="recipe-form" class="space-y-3" @submit.prevent="handleSubmit">
+  <form
+    data-test="recipe-form"
+    class="space-y-3 rounded-lg border border-warm-200/80 bg-white p-4 shadow-sm"
+    @submit.prevent="handleSubmit"
+  >
     <Input v-model="name" data-test="recipe-name" :placeholder="t('recipes.namePlaceholder')" />
 
     <div class="grid grid-cols-2 gap-2">
@@ -115,7 +119,7 @@ function handleSubmit() {
       />
     </div>
 
-    <Separator />
+    <Separator class="!my-4" />
 
     <!-- Add ingredient to recipe — auto-adds on select -->
     <Select v-model="selectedIngredientId" @update:model-value="onIngredientSelected">
@@ -130,11 +134,15 @@ function handleSubmit() {
     </Select>
 
     <!-- Recipe ingredients list -->
-    <div v-if="recipeIngredients.length > 0" class="space-y-2" data-test="recipe-ingredients-list">
+    <div
+      v-if="recipeIngredients.length > 0"
+      class="space-y-1.5"
+      data-test="recipe-ingredients-list"
+    >
       <div
         v-for="(ri, index) in recipeIngredients"
         :key="ri.ingredientId"
-        class="flex items-center gap-2 rounded-md border border-warm-100 bg-warm-50 px-3 py-2"
+        class="flex items-center gap-2 rounded-md border border-warm-100 bg-warm-50/50 px-3 py-2"
         data-test="recipe-ingredient-row"
       >
         <span class="min-w-0 flex-1 truncate text-sm text-warm-700">
@@ -164,20 +172,22 @@ function handleSubmit() {
     <!-- Live cost calculations -->
     <div
       v-if="recipeIngredients.length > 0"
-      class="rounded-md border border-amber-200 bg-amber-50 p-3 text-sm"
+      class="rounded-md bg-warm-50 p-3 text-sm"
       data-test="recipe-cost-summary"
     >
-      <div class="flex justify-between">
-        <span class="text-warm-600">{{ t('recipes.totalCost') }}</span>
-        <span class="font-semibold text-warm-800">${{ totalCost.toFixed(2) }}</span>
+      <div class="flex justify-between py-0.5">
+        <span class="text-warm-500">{{ t('recipes.totalCost') }}</span>
+        <span class="font-medium tabular-nums text-warm-700">${{ totalCost.toFixed(2) }}</span>
       </div>
-      <div class="flex justify-between">
-        <span class="text-warm-600">{{ t('recipes.costPerServing') }}</span>
-        <span class="font-semibold text-warm-800">${{ costPerServing.toFixed(2) }}</span>
+      <div class="flex justify-between py-0.5">
+        <span class="text-warm-500">{{ t('recipes.costPerServing') }}</span>
+        <span class="font-medium tabular-nums text-warm-700">${{ costPerServing.toFixed(2) }}</span>
       </div>
-      <div class="flex justify-between">
-        <span class="text-warm-600">{{ t('recipes.suggestedPrice') }}</span>
-        <span class="font-bold text-amber-700">${{ suggestedPrice.toFixed(2) }}</span>
+      <div class="mt-1 flex justify-between border-t border-warm-200 pt-1.5">
+        <span class="font-medium text-warm-600">{{ t('recipes.suggestedPrice') }}</span>
+        <span class="font-semibold tabular-nums text-amber-700"
+          >${{ suggestedPrice.toFixed(2) }}</span
+        >
       </div>
     </div>
 

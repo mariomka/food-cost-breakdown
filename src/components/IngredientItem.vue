@@ -73,7 +73,7 @@ function handleClick() {
   <form
     v-if="editing"
     data-test="ingredient-edit-form"
-    class="space-y-2 rounded-md border-2 border-amber-300 bg-amber-50/50 px-3 py-3"
+    class="space-y-2 rounded-lg border border-amber-300 bg-amber-50/40 px-4 py-3"
     @submit.prevent="saveEdit"
   >
     <Input v-model="editName" data-test="ingredient-edit-name" class="h-8 text-sm" />
@@ -91,7 +91,7 @@ function handleClick() {
         </SelectContent>
       </Select>
     </div>
-    <div class="flex gap-2">
+    <div class="flex gap-2 pt-1">
       <Button type="submit" size="sm" class="h-7 flex-1 text-xs" data-test="ingredient-edit-save">
         {{ t('common.save') }}
       </Button>
@@ -123,7 +123,7 @@ function handleClick() {
       <TooltipTrigger as-child>
         <div
           data-test="ingredient-item"
-          class="flex cursor-pointer items-center justify-between rounded-md border border-warm-200 bg-white px-4 py-3 transition-colors hover:border-amber-200 hover:bg-amber-50/50"
+          class="group flex cursor-pointer items-center justify-between rounded-lg border border-warm-200/60 bg-white px-4 py-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all hover:border-warm-300 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
           @click="handleClick"
         >
           <div class="min-w-0 flex-1">
@@ -133,7 +133,9 @@ function handleClick() {
             </p>
           </div>
           <div class="ml-4 text-right">
-            <p class="text-sm font-semibold text-amber-700">${{ ingredient.price.toFixed(2) }}</p>
+            <p class="text-sm font-semibold tabular-nums text-amber-700">
+              ${{ ingredient.price.toFixed(2) }}
+            </p>
           </div>
         </div>
       </TooltipTrigger>

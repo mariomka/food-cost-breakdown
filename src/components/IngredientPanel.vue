@@ -4,7 +4,6 @@ import { useIngredients } from '@/composables/useIngredients'
 import { useRecipes } from '@/composables/useRecipes'
 import IngredientForm from './IngredientForm.vue'
 import IngredientItem from './IngredientItem.vue'
-import { Separator } from '@/components/ui/separator'
 
 const { t } = useI18n()
 const { ingredients, removeIngredient } = useIngredients()
@@ -17,13 +16,12 @@ function handleDelete(id: string) {
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="space-y-5">
     <IngredientForm />
-    <Separator />
     <Transition name="fade" mode="out-in">
-      <div v-if="ingredients.length === 0" class="py-12 text-center">
+      <div v-if="ingredients.length === 0" class="py-14 text-center">
         <div
-          class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-warm-100"
+          class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-warm-100"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +29,7 @@ function handleDelete(id: string) {
             fill="none"
             stroke="currentColor"
             stroke-width="1.5"
-            class="h-6 w-6 text-warm-400"
+            class="h-5 w-5 text-warm-300"
           >
             <path d="M12 3v18m-9-9h18" stroke-linecap="round" />
           </svg>
