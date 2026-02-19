@@ -12,10 +12,13 @@ const { t, locale } = useI18n()
 </script>
 
 <template>
-  <header class="border-b border-warm-200 bg-white/80 backdrop-blur-sm">
+  <header class="sticky top-0 z-50 border-b border-warm-200 bg-white/90 backdrop-blur-md">
+    <div class="h-0.5 bg-gradient-to-r from-amber-500 via-terracotta-400 to-amber-600" />
     <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
       <div class="flex items-center gap-3">
-        <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-600 text-white">
+        <div
+          class="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-amber-500 to-terracotta-500 text-white shadow-sm"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -38,7 +41,7 @@ const { t, locale } = useI18n()
           <h1 class="font-display text-xl leading-tight font-normal text-warm-900">
             {{ t('app.title') }}
           </h1>
-          <p class="text-xs text-warm-400">{{ t('app.subtitle') }}</p>
+          <p class="text-xs tracking-wide text-warm-400">{{ t('app.subtitle') }}</p>
         </div>
       </div>
 
