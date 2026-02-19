@@ -48,9 +48,10 @@ describe('IngredientItem', () => {
     expect(wrapper.text()).toContain('kg')
   })
 
-  it('emits delete event on double-click', async () => {
+  it('emits delete event from edit mode delete button', async () => {
     const wrapper = createWrapper()
-    await wrapper.find('[data-test="ingredient-item"]').trigger('dblclick')
+    await wrapper.find('[data-test="ingredient-item"]').trigger('click')
+    await wrapper.find('[data-test="ingredient-edit-delete"]').trigger('click')
     expect(wrapper.emitted('delete')).toBeTruthy()
     expect(wrapper.emitted('delete')![0]).toEqual(['test-1'])
   })

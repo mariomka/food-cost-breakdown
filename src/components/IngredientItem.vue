@@ -56,15 +56,15 @@ function cancelEdit() {
   editing.value = false
 }
 
+function handleDelete() {
+  editing.value = false
+  emit('delete', props.ingredient.id)
+}
+
 function handleClick() {
   if (!editing.value) {
     startEdit()
   }
-}
-
-function handleDblClick() {
-  editing.value = false
-  emit('delete', props.ingredient.id)
 }
 </script>
 
@@ -104,6 +104,16 @@ function handleDblClick() {
       >
         {{ t('common.cancel') }}
       </Button>
+      <Button
+        type="button"
+        variant="ghost"
+        size="sm"
+        class="h-7 px-2 text-xs text-destructive hover:bg-destructive/10 hover:text-destructive"
+        data-test="ingredient-edit-delete"
+        @click="handleDelete"
+      >
+        {{ t('common.delete') }}
+      </Button>
     </div>
   </form>
 
@@ -115,7 +125,6 @@ function handleDblClick() {
           data-test="ingredient-item"
           class="flex cursor-pointer items-center justify-between rounded-md border border-warm-200 bg-white px-4 py-3 transition-colors hover:border-amber-200 hover:bg-amber-50/50"
           @click="handleClick"
-          @dblclick="handleDblClick"
         >
           <div class="min-w-0 flex-1">
             <p class="truncate text-sm font-medium text-warm-800">{{ ingredient.name }}</p>

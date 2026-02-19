@@ -53,9 +53,10 @@ describe('RecipeItem', () => {
     expect(wrapper.text()).toContain('$1.00')
   })
 
-  it('emits delete event on double-click', async () => {
+  it('emits delete event from edit mode delete button', async () => {
     const wrapper = createWrapper()
-    await wrapper.find('[data-test="recipe-item"]').trigger('dblclick')
+    await wrapper.find('[data-test="recipe-item"]').trigger('click')
+    await wrapper.find('[data-test="recipe-edit-delete"]').trigger('click')
     expect(wrapper.emitted('delete')).toBeTruthy()
     expect(wrapper.emitted('delete')![0]).toEqual(['recipe-1'])
   })
