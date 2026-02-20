@@ -156,7 +156,11 @@ function handleClick() {
     <Separator />
 
     <!-- Add ingredient -->
-    <Select v-model="selectedIngredientId" @update:model-value="addEditIngredient">
+    <Select
+      v-model="selectedIngredientId"
+      :disabled="availableIngredients.length === 0"
+      @update:model-value="addEditIngredient"
+    >
       <SelectTrigger class="h-8 text-sm">
         <SelectValue :placeholder="t('recipes.selectIngredient')" />
       </SelectTrigger>

@@ -120,7 +120,11 @@ function handleSubmit() {
     <Separator class="!my-4" />
 
     <!-- Add ingredient to recipe — auto-adds on select -->
-    <Select v-model="selectedIngredientId" @update:model-value="onIngredientSelected">
+    <Select
+      v-model="selectedIngredientId"
+      :disabled="availableIngredients.length === 0"
+      @update:model-value="onIngredientSelected"
+    >
       <SelectTrigger data-test="recipe-ingredient-select">
         <SelectValue :placeholder="t('recipes.selectIngredient')" />
       </SelectTrigger>
