@@ -22,7 +22,7 @@ const { addIngredient } = useIngredients()
 const name = ref('')
 const price = ref<number | undefined>()
 const quantity = ref<number | undefined>()
-const unit = ref<UnitType>('kg')
+const unit = ref<UnitType>('g')
 
 const units: UnitType[] = ['kg', 'g', 'L', 'mL', 'unit']
 
@@ -32,7 +32,7 @@ function handleSubmit() {
   name.value = ''
   price.value = undefined
   quantity.value = undefined
-  unit.value = 'kg'
+  unit.value = 'g'
   emit('added')
 }
 </script>
