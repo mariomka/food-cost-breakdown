@@ -5,7 +5,7 @@ import es from './locales/es'
 function getLocale(): string {
   const saved = localStorage.getItem('locale')
   if (saved === 'es' || saved === 'en') return saved
-  const lang = navigator.language.split('-')[0]
+  const lang = new Intl.Locale(navigator.language).language
   return lang === 'es' ? 'es' : 'en'
 }
 
