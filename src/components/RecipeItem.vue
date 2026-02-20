@@ -6,6 +6,7 @@ import { useIngredients } from '@/composables/useIngredients'
 import { useRecipes } from '@/composables/useRecipes'
 import { useCostCalculations } from '@/composables/useCostCalculations'
 import { useCurrencyFormat } from '@/composables/useCurrencyFormat'
+import { GripVertical } from 'lucide-vue-next'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -285,6 +286,12 @@ function handleClick() {
               class="group cursor-pointer rounded-lg border border-warm-200/60 bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all hover:border-warm-300 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)] dark:border-warm-700/60 dark:bg-warm-800 dark:hover:border-warm-600"
               @click="handleClick"
             >
+              <div
+                class="drag-handle -ml-1 -mt-1 mb-1 inline-flex cursor-grab touch-none text-warm-300 transition-colors group-hover:text-warm-500 active:cursor-grabbing dark:text-warm-600 dark:group-hover:text-warm-400"
+                @click.stop
+              >
+                <GripVertical class="h-4 w-4" />
+              </div>
               <div class="mb-3 flex items-start justify-between">
                 <h3 class="font-display text-lg text-warm-800 dark:text-warm-100">
                   {{ recipe.name }}

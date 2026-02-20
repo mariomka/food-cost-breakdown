@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import type { Ingredient, UnitType } from '@/types'
 import { useIngredients } from '@/composables/useIngredients'
 import { useCurrencyFormat } from '@/composables/useCurrencyFormat'
+import { GripVertical } from 'lucide-vue-next'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -158,6 +159,12 @@ function handleClick() {
               class="group flex cursor-pointer items-center justify-between rounded-lg border border-warm-200/60 bg-white px-4 py-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all hover:border-warm-300 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)] dark:border-warm-700/60 dark:bg-warm-800 dark:hover:border-warm-600"
               @click="handleClick"
             >
+              <div
+                class="drag-handle -ml-1 mr-2 cursor-grab touch-none text-warm-300 transition-colors group-hover:text-warm-500 active:cursor-grabbing dark:text-warm-600 dark:group-hover:text-warm-400"
+                @click.stop
+              >
+                <GripVertical class="h-4 w-4" />
+              </div>
               <div class="min-w-0 flex-1">
                 <p class="truncate text-sm font-medium text-warm-800 dark:text-warm-100">
                   {{ ingredient.name }}

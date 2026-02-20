@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { VueDraggable } from 'vue-draggable-plus'
 import { useIngredients } from '@/composables/useIngredients'
 import { useRecipes } from '@/composables/useRecipes'
 import { Button } from '@/components/ui/button'
@@ -74,14 +75,23 @@ function handleAdded() {
         </div>
         <p class="text-sm text-warm-400 dark:text-warm-500">{{ t('ingredients.empty') }}</p>
       </div>
-      <TransitionGroup v-else tag="div" name="list" class="space-y-2" data-test="ingredient-list">
+      <VueDraggable
+        v-else
+        v-model="ingredients"
+        tag="div"
+        :animation="200"
+        handle=".drag-handle"
+        ghost-class="opacity-50"
+        class="space-y-2"
+        data-test="ingredient-list"
+      >
         <IngredientItem
           v-for="ingredient in ingredients"
           :key="ingredient.id"
           :ingredient="ingredient"
           @delete="handleDelete"
         />
-      </TransitionGroup>
+      </VueDraggable>
     </Transition>
   </div>
 </template>
