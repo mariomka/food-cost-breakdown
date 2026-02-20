@@ -15,13 +15,12 @@ const { t } = useI18n()
 
       <div>
         <h3 class="font-display mb-3 text-lg text-warm-800">{{ t('info.features') }}</h3>
-        <ul class="space-y-2">
+        <ul class="list-disc space-y-2 pl-5 marker:text-amber-600">
           <li
             v-for="key in ['ingredients', 'recipes', 'margin', 'export', 'offline', 'i18n']"
             :key="key"
-            class="flex items-start gap-2 text-sm text-warm-600"
+            class="text-sm text-warm-600"
           >
-            <span class="mt-1 text-amber-600">&#x2022;</span>
             {{ t(`info.featureList.${key}`) }}
           </li>
         </ul>
