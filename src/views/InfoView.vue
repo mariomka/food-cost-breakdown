@@ -6,7 +6,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <div class="mx-auto max-w-2xl px-4 py-12 sm:px-6">
+  <div class="mx-auto max-w-2xl px-4 py-8 sm:px-6">
     <div class="space-y-8">
       <div>
         <h2 class="font-display text-2xl text-warm-800 dark:text-warm-100">
