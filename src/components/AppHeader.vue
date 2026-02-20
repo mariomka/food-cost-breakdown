@@ -15,55 +15,46 @@ const { t, locale } = useI18n()
   <header class="sticky top-0 z-50 border-b border-warm-200/80 bg-white/95 backdrop-blur-sm">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
       <div class="flex items-center gap-3">
-        <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-700">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="h-5 w-5">
-            <!-- Pan base -->
-            <ellipse cx="16" cy="22" rx="10" ry="4" fill="rgba(255,255,255,0.2)" />
-            <ellipse cx="16" cy="21" rx="10" ry="4" fill="white" />
-            <!-- Pan handle -->
-            <rect x="25" y="19.5" width="5" height="3" rx="1.5" fill="rgba(255,255,255,0.6)" />
-            <!-- Coin stack in pan -->
-            <ellipse cx="16" cy="19" rx="5" ry="2" fill="#f59e0b" />
-            <rect x="11" y="17" width="10" height="2" fill="#f59e0b" />
-            <ellipse cx="16" cy="17" rx="5" ry="2" fill="#fbbf24" />
-            <rect x="11" y="15" width="10" height="2" fill="#fbbf24" />
-            <ellipse cx="16" cy="15" rx="5" ry="2" fill="#fcd34d" />
-            <!-- Dollar sign on top coin -->
-            <text
-              x="16"
-              y="17"
-              text-anchor="middle"
-              font-size="5"
-              font-weight="bold"
-              fill="#92400e"
-              font-family="sans-serif"
-            >
-              $
-            </text>
-            <!-- Steam wisps -->
+        <div
+          class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-amber-600 to-amber-800 shadow-sm"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="h-6 w-6">
+            <!-- Pan bowl -->
             <path
-              d="M11 12 Q10 9 11 7"
-              stroke="white"
+              d="M5 19.5 C5 24.5 9.5 27.5 16 27.5 C22.5 27.5 27 24.5 27 19.5"
+              fill="rgba(255,255,255,0.85)"
+            />
+            <!-- Pan rim -->
+            <rect x="4" y="17.5" width="24" height="2.5" rx="1.25" fill="white" />
+            <!-- Handle -->
+            <rect x="27" y="18" width="3.5" height="1.5" rx="0.75" fill="rgba(255,255,255,0.4)" />
+            <!-- Coin -->
+            <circle cx="16" cy="11" r="6.5" fill="#fbbf24" />
+            <circle
+              cx="16"
+              cy="11"
+              r="4.5"
+              fill="none"
+              stroke="#d97706"
+              stroke-width="0.5"
+              opacity="0.45"
+            />
+            <!-- $ as path (S-curve + vertical line) -->
+            <path
+              d="M14.8 8.5 C14.8 7.2 17.2 7.2 17.2 9 C17.2 10.5 14.8 10.5 14.8 12.5 C14.8 14.3 17.2 14.3 17.2 13"
+              stroke="#92400e"
               stroke-width="1"
               fill="none"
-              opacity="0.5"
               stroke-linecap="round"
             />
-            <path
-              d="M16 11 Q15 8 16 6"
-              stroke="white"
-              stroke-width="1"
-              fill="none"
-              opacity="0.4"
-              stroke-linecap="round"
-            />
-            <path
-              d="M21 12 Q20 9 21 7"
-              stroke="white"
-              stroke-width="1"
-              fill="none"
-              opacity="0.5"
-              stroke-linecap="round"
+            <line
+              x1="16"
+              y1="6.5"
+              x2="16"
+              y2="15.5"
+              stroke="#92400e"
+              stroke-width="0.5"
+              opacity="0.6"
             />
           </svg>
         </div>
