@@ -40,6 +40,7 @@ export default {
     addRecipe: 'Add Recipe',
     namePlaceholder: 'Recipe name',
     servings: 'Servings',
+    servingCount: '1 serving | {count} servings',
     targetMargin: 'Target Margin (%)',
     totalCost: 'Total Cost',
     costPerServing: 'Cost per Serving',

@@ -279,7 +279,7 @@ function handleClick() {
                 <span
                   class="rounded-full bg-warm-100 px-2 py-0.5 text-[11px] font-medium tabular-nums text-warm-500"
                 >
-                  {{ recipe.servings }} {{ t('recipes.servings').toLowerCase() }}
+                  {{ t('recipes.servingCount', { count: recipe.servings }, recipe.servings) }}
                 </span>
               </div>
               <div class="space-y-1 text-sm">
