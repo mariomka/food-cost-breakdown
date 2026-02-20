@@ -74,6 +74,12 @@ export default {
     success: 'Datos importados correctamente',
     error: 'Error al importar',
   },
+  theme: {
+    label: 'Tema',
+    light: 'Claro',
+    dark: 'Oscuro',
+    system: 'Sistema',
+  },
   language: {
     label: 'Idioma',
     en: 'English',

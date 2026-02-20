@@ -78,28 +78,28 @@ function handleClick() {
       v-if="editing"
       key="edit"
       data-test="ingredient-edit-form"
-      class="space-y-3 rounded-lg border border-amber-200 bg-amber-50/20 p-4"
+      class="space-y-3 rounded-lg border border-amber-200 bg-amber-50/20 p-4 dark:border-amber-800 dark:bg-amber-950/30"
       @submit.prevent="saveEdit"
     >
       <div class="mb-1 flex items-center gap-2">
         <span
-          class="rounded-full bg-amber-100 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-amber-600 uppercase"
+          class="rounded-full bg-amber-100 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-amber-600 uppercase dark:bg-amber-900/40 dark:text-amber-400"
         >
           {{ t('ingredients.editing') }}
         </span>
       </div>
 
       <div class="space-y-1">
-        <Label class="text-xs text-warm-500">{{ t('common.name') }}</Label>
+        <Label class="text-xs text-warm-500 dark:text-warm-400">{{ t('common.name') }}</Label>
         <Input v-model="editName" data-test="ingredient-edit-name" class="h-8 text-sm" />
       </div>
       <div class="grid grid-cols-3 gap-2">
         <div class="space-y-1">
-          <Label class="text-xs text-warm-500">{{ t('common.price') }}</Label>
+          <Label class="text-xs text-warm-500 dark:text-warm-400">{{ t('common.price') }}</Label>
           <Input v-model.number="editPrice" type="number" step="0.01" min="0" class="h-8 text-sm" />
         </div>
         <div class="space-y-1">
-          <Label class="text-xs text-warm-500">{{ t('common.quantity') }}</Label>
+          <Label class="text-xs text-warm-500 dark:text-warm-400">{{ t('common.quantity') }}</Label>
           <Input
             v-model.number="editQuantity"
             type="number"
@@ -109,7 +109,7 @@ function handleClick() {
           />
         </div>
         <div class="space-y-1">
-          <Label class="text-xs text-warm-500">{{ t('common.unit') }}</Label>
+          <Label class="text-xs text-warm-500 dark:text-warm-400">{{ t('common.unit') }}</Label>
           <Select v-model="editUnit">
             <SelectTrigger class="h-8 text-sm">
               <SelectValue />
@@ -155,17 +155,19 @@ function handleClick() {
           <TooltipTrigger as-child>
             <div
               data-test="ingredient-item"
-              class="group flex cursor-pointer items-center justify-between rounded-lg border border-warm-200/60 bg-white px-4 py-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all hover:border-warm-300 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
+              class="group flex cursor-pointer items-center justify-between rounded-lg border border-warm-200/60 bg-white px-4 py-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all hover:border-warm-300 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)] dark:border-warm-700/60 dark:bg-warm-800 dark:hover:border-warm-600"
               @click="handleClick"
             >
               <div class="min-w-0 flex-1">
-                <p class="truncate text-sm font-medium text-warm-800">{{ ingredient.name }}</p>
-                <p class="text-xs text-warm-400">
+                <p class="truncate text-sm font-medium text-warm-800 dark:text-warm-100">
+                  {{ ingredient.name }}
+                </p>
+                <p class="text-xs text-warm-400 dark:text-warm-500">
                   {{ ingredient.quantity }} {{ t(`units.${ingredient.unit}`) }}
                 </p>
               </div>
               <div class="ml-4 text-right">
-                <p class="text-sm font-semibold tabular-nums text-amber-700">
+                <p class="text-sm font-semibold tabular-nums text-amber-700 dark:text-amber-500">
                   {{ formatCurrency(ingredient.price) }}
                 </p>
               </div>

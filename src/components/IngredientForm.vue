@@ -40,11 +40,13 @@ function handleSubmit() {
 <template>
   <form
     data-test="ingredient-form"
-    class="space-y-3 rounded-lg border border-warm-200/80 bg-white p-4 shadow-sm"
+    class="space-y-3 rounded-lg border border-warm-200/80 bg-white p-4 shadow-sm dark:border-warm-700/80 dark:bg-warm-800"
     @submit.prevent="handleSubmit"
   >
     <div class="space-y-1">
-      <Label for="ingredient-name" class="text-xs text-warm-500">{{ t('common.name') }}</Label>
+      <Label for="ingredient-name" class="text-xs text-warm-500 dark:text-warm-400">{{
+        t('common.name')
+      }}</Label>
       <Input
         id="ingredient-name"
         v-model="name"
@@ -54,7 +56,9 @@ function handleSubmit() {
     </div>
     <div class="grid grid-cols-3 gap-2">
       <div class="space-y-1">
-        <Label for="ingredient-price" class="text-xs text-warm-500">{{ t('common.price') }}</Label>
+        <Label for="ingredient-price" class="text-xs text-warm-500 dark:text-warm-400">{{
+          t('common.price')
+        }}</Label>
         <Input
           id="ingredient-price"
           v-model.number="price"
@@ -66,7 +70,7 @@ function handleSubmit() {
         />
       </div>
       <div class="space-y-1">
-        <Label for="ingredient-quantity" class="text-xs text-warm-500">{{
+        <Label for="ingredient-quantity" class="text-xs text-warm-500 dark:text-warm-400">{{
           t('common.quantity')
         }}</Label>
         <Input
@@ -80,7 +84,7 @@ function handleSubmit() {
         />
       </div>
       <div class="space-y-1">
-        <Label class="text-xs text-warm-500">{{ t('common.unit') }}</Label>
+        <Label class="text-xs text-warm-500 dark:text-warm-400">{{ t('common.unit') }}</Label>
         <Select v-model="unit">
           <SelectTrigger data-test="ingredient-unit">
             <SelectValue />

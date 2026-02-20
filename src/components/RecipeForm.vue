@@ -100,11 +100,13 @@ function handleSubmit() {
 <template>
   <form
     data-test="recipe-form"
-    class="space-y-3 rounded-lg border border-warm-200/80 bg-white p-4 shadow-sm"
+    class="space-y-3 rounded-lg border border-warm-200/80 bg-white p-4 shadow-sm dark:border-warm-700/80 dark:bg-warm-800"
     @submit.prevent="handleSubmit"
   >
     <div class="space-y-1">
-      <Label for="recipe-name" class="text-xs text-warm-500">{{ t('common.name') }}</Label>
+      <Label for="recipe-name" class="text-xs text-warm-500 dark:text-warm-400">{{
+        t('common.name')
+      }}</Label>
       <Input
         id="recipe-name"
         v-model="name"
@@ -115,7 +117,7 @@ function handleSubmit() {
 
     <div class="grid grid-cols-2 gap-2">
       <div class="space-y-1">
-        <Label for="recipe-servings" class="text-xs text-warm-500">{{
+        <Label for="recipe-servings" class="text-xs text-warm-500 dark:text-warm-400">{{
           t('recipes.servings')
         }}</Label>
         <Input
@@ -128,7 +130,7 @@ function handleSubmit() {
         />
       </div>
       <div class="space-y-1">
-        <Label for="recipe-margin" class="text-xs text-warm-500">{{
+        <Label for="recipe-margin" class="text-xs text-warm-500 dark:text-warm-400">{{
           t('recipes.targetMargin')
         }}</Label>
         <Input
@@ -170,10 +172,10 @@ function handleSubmit() {
       <div
         v-for="(ri, index) in recipeIngredients"
         :key="ri.ingredientId"
-        class="flex items-center gap-2 rounded-md border border-warm-100 bg-warm-50/50 px-3 py-2"
+        class="flex items-center gap-2 rounded-md border border-warm-100 bg-warm-50/50 px-3 py-2 dark:border-warm-700 dark:bg-warm-800/50"
         data-test="recipe-ingredient-row"
       >
-        <span class="min-w-0 flex-1 truncate text-sm text-warm-700">
+        <span class="min-w-0 flex-1 truncate text-sm text-warm-700 dark:text-warm-200">
           {{ getIngredient(ri.ingredientId)?.name }}
         </span>
         <Input
@@ -184,7 +186,7 @@ function handleSubmit() {
           class="w-20"
           placeholder="Qty"
         />
-        <span class="w-12 text-center text-xs text-warm-400">{{
+        <span class="w-12 text-center text-xs text-warm-400 dark:text-warm-500">{{
           t(`units.${getIngredient(ri.ingredientId)?.unit}`)
         }}</span>
         <Button
@@ -202,22 +204,26 @@ function handleSubmit() {
     <!-- Live cost calculations -->
     <div
       v-if="recipeIngredients.length > 0"
-      class="rounded-md bg-warm-50 p-3 text-sm"
+      class="rounded-md bg-warm-50 p-3 text-sm dark:bg-warm-800"
       data-test="recipe-cost-summary"
     >
       <div class="flex justify-between py-0.5">
-        <span class="text-warm-500">{{ t('recipes.totalCost') }}</span>
-        <span class="font-medium tabular-nums text-warm-700">{{ formatCurrency(totalCost) }}</span>
+        <span class="text-warm-500 dark:text-warm-400">{{ t('recipes.totalCost') }}</span>
+        <span class="font-medium tabular-nums text-warm-700 dark:text-warm-200">{{
+          formatCurrency(totalCost)
+        }}</span>
       </div>
       <div class="flex justify-between py-0.5">
-        <span class="text-warm-500">{{ t('recipes.costPerServing') }}</span>
-        <span class="font-medium tabular-nums text-warm-700">{{
+        <span class="text-warm-500 dark:text-warm-400">{{ t('recipes.costPerServing') }}</span>
+        <span class="font-medium tabular-nums text-warm-700 dark:text-warm-200">{{
           formatCurrency(costPerServing)
         }}</span>
       </div>
-      <div class="mt-1 flex justify-between border-t border-warm-200 pt-1.5">
-        <span class="font-medium text-warm-600">{{ t('recipes.suggestedPrice') }}</span>
-        <span class="font-semibold tabular-nums text-amber-700">{{
+      <div class="mt-1 flex justify-between border-t border-warm-200 pt-1.5 dark:border-warm-700">
+        <span class="font-medium text-warm-600 dark:text-warm-300">{{
+          t('recipes.suggestedPrice')
+        }}</span>
+        <span class="font-semibold tabular-nums text-amber-700 dark:text-amber-500">{{
           formatCurrency(suggestedPrice)
         }}</span>
       </div>

@@ -133,6 +133,40 @@ button:focus-visible {
   --sidebar-ring: #d97706;
 }
 
+.dark {
+  --background: #1c1917;
+  --foreground: #fafaf9;
+  --card: #292524;
+  --card-foreground: #f5f5f4;
+  --popover: #292524;
+  --popover-foreground: #f5f5f4;
+  --primary: #d97706;
+  --primary-foreground: #fffbeb;
+  --secondary: #44403c;
+  --secondary-foreground: #f5f5f4;
+  --muted: #44403c;
+  --muted-foreground: #a8a29e;
+  --accent: #78350f;
+  --accent-foreground: #fef3c7;
+  --destructive: #e05a3a;
+  --border: #44403c;
+  --input: #57534e;
+  --ring: #f59e0b;
+  --chart-1: #d97706;
+  --chart-2: #e05a3a;
+  --chart-3: #fbbf24;
+  --chart-4: #ec7a63;
+  --chart-5: #fcd34d;
+  --sidebar: #292524;
+  --sidebar-foreground: #fafaf9;
+  --sidebar-primary: #d97706;
+  --sidebar-primary-foreground: #fffbeb;
+  --sidebar-accent: #78350f;
+  --sidebar-accent-foreground: #fef3c7;
+  --sidebar-border: #44403c;
+  --sidebar-ring: #f59e0b;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

@@ -127,25 +127,27 @@ function handleClick() {
       v-if="editing"
       key="edit"
       data-test="recipe-edit-form"
-      class="space-y-3 rounded-lg border border-amber-200 bg-amber-50/20 p-4"
+      class="space-y-3 rounded-lg border border-amber-200 bg-amber-50/20 p-4 dark:border-amber-800 dark:bg-amber-950/30"
       @submit.prevent="saveEdit"
     >
       <div class="mb-1 flex items-center gap-2">
         <span
-          class="rounded-full bg-amber-100 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-amber-600 uppercase"
+          class="rounded-full bg-amber-100 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-amber-600 uppercase dark:bg-amber-900/40 dark:text-amber-400"
         >
           {{ t('recipes.editing') }}
         </span>
       </div>
 
       <div class="space-y-1">
-        <Label class="text-xs text-warm-500">{{ t('common.name') }}</Label>
+        <Label class="text-xs text-warm-500 dark:text-warm-400">{{ t('common.name') }}</Label>
         <Input v-model="editName" data-test="recipe-edit-name" class="h-8 text-sm" />
       </div>
 
       <div class="grid grid-cols-2 gap-2">
         <div class="space-y-1">
-          <Label class="text-xs text-warm-500">{{ t('recipes.servings') }}</Label>
+          <Label class="text-xs text-warm-500 dark:text-warm-400">{{
+            t('recipes.servings')
+          }}</Label>
           <Input
             v-model.number="editServings"
             type="number"
@@ -155,7 +157,9 @@ function handleClick() {
           />
         </div>
         <div class="space-y-1">
-          <Label class="text-xs text-warm-500">{{ t('recipes.targetMargin') }}</Label>
+          <Label class="text-xs text-warm-500 dark:text-warm-400">{{
+            t('recipes.targetMargin')
+          }}</Label>
           <Input
             v-model.number="editMargin"
             type="number"
@@ -190,9 +194,9 @@ function handleClick() {
         <div
           v-for="(ri, index) in editIngredients"
           :key="ri.ingredientId"
-          class="flex items-center gap-2 rounded border border-warm-200/60 bg-white px-2 py-1.5"
+          class="flex items-center gap-2 rounded border border-warm-200/60 bg-white px-2 py-1.5 dark:border-warm-700/60 dark:bg-warm-800"
         >
-          <span class="min-w-0 flex-1 truncate text-xs text-warm-700">
+          <span class="min-w-0 flex-1 truncate text-xs text-warm-700 dark:text-warm-200">
             {{ getIngredient(ri.ingredientId)?.name }}
           </span>
           <Input
@@ -203,7 +207,7 @@ function handleClick() {
             class="h-7 w-20 text-xs"
             placeholder="Qty"
           />
-          <span class="text-xs text-warm-400">{{
+          <span class="text-xs text-warm-400 dark:text-warm-500">{{
             t(`units.${getIngredient(ri.ingredientId)?.unit}`)
           }}</span>
           <Button
@@ -219,22 +223,27 @@ function handleClick() {
       </div>
 
       <!-- Live cost -->
-      <div v-if="editIngredients.length > 0" class="rounded-md bg-warm-50 p-2 text-xs">
+      <div
+        v-if="editIngredients.length > 0"
+        class="rounded-md bg-warm-50 p-2 text-xs dark:bg-warm-800"
+      >
         <div class="flex justify-between py-0.5">
-          <span class="text-warm-500">{{ t('recipes.totalCost') }}</span>
-          <span class="font-medium tabular-nums text-warm-700">{{
+          <span class="text-warm-500 dark:text-warm-400">{{ t('recipes.totalCost') }}</span>
+          <span class="font-medium tabular-nums text-warm-700 dark:text-warm-200">{{
             formatCurrency(editTotalCost)
           }}</span>
         </div>
         <div class="flex justify-between py-0.5">
-          <span class="text-warm-500">{{ t('recipes.costPerServing') }}</span>
-          <span class="font-medium tabular-nums text-warm-700">{{
+          <span class="text-warm-500 dark:text-warm-400">{{ t('recipes.costPerServing') }}</span>
+          <span class="font-medium tabular-nums text-warm-700 dark:text-warm-200">{{
             formatCurrency(editCostPerServing)
           }}</span>
         </div>
-        <div class="mt-1 flex justify-between border-t border-warm-200 pt-1">
-          <span class="font-medium text-warm-600">{{ t('recipes.suggestedPrice') }}</span>
-          <span class="font-semibold tabular-nums text-amber-700">{{
+        <div class="mt-1 flex justify-between border-t border-warm-200 pt-1 dark:border-warm-700">
+          <span class="font-medium text-warm-600 dark:text-warm-300">{{
+            t('recipes.suggestedPrice')
+          }}</span>
+          <span class="font-semibold tabular-nums text-amber-700 dark:text-amber-500">{{
             formatCurrency(editSuggestedPrice)
           }}</span>
         </div>
@@ -273,31 +282,41 @@ function handleClick() {
           <TooltipTrigger as-child>
             <div
               data-test="recipe-item"
-              class="group cursor-pointer rounded-lg border border-warm-200/60 bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all hover:border-warm-300 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
+              class="group cursor-pointer rounded-lg border border-warm-200/60 bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all hover:border-warm-300 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)] dark:border-warm-700/60 dark:bg-warm-800 dark:hover:border-warm-600"
               @click="handleClick"
             >
               <div class="mb-3 flex items-start justify-between">
-                <h3 class="font-display text-lg text-warm-800">{{ recipe.name }}</h3>
+                <h3 class="font-display text-lg text-warm-800 dark:text-warm-100">
+                  {{ recipe.name }}
+                </h3>
                 <span
-                  class="rounded-full bg-warm-100 px-2 py-0.5 text-[11px] font-medium tabular-nums text-warm-500"
+                  class="rounded-full bg-warm-100 px-2 py-0.5 text-[11px] font-medium tabular-nums text-warm-500 dark:bg-warm-800 dark:text-warm-400"
                 >
                   {{ t('recipes.servingCount', { count: recipe.servings }, recipe.servings) }}
                 </span>
               </div>
               <div class="space-y-1 text-sm">
                 <div class="flex justify-between">
-                  <span class="text-warm-400">{{ t('recipes.totalCost') }}</span>
-                  <span class="tabular-nums text-warm-600">{{ formatCurrency(totalCost) }}</span>
+                  <span class="text-warm-400 dark:text-warm-500">{{ t('recipes.totalCost') }}</span>
+                  <span class="tabular-nums text-warm-600 dark:text-warm-300">{{
+                    formatCurrency(totalCost)
+                  }}</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-warm-400">{{ t('recipes.costPerServing') }}</span>
-                  <span class="tabular-nums text-warm-600">{{
+                  <span class="text-warm-400 dark:text-warm-500">{{
+                    t('recipes.costPerServing')
+                  }}</span>
+                  <span class="tabular-nums text-warm-600 dark:text-warm-300">{{
                     formatCurrency(costPerServing)
                   }}</span>
                 </div>
-                <div class="flex justify-between border-t border-warm-100 pt-1.5">
-                  <span class="font-medium text-warm-600">{{ t('recipes.suggestedPrice') }}</span>
-                  <span class="font-semibold tabular-nums text-amber-700">{{
+                <div
+                  class="flex justify-between border-t border-warm-100 pt-1.5 dark:border-warm-700"
+                >
+                  <span class="font-medium text-warm-600 dark:text-warm-300">{{
+                    t('recipes.suggestedPrice')
+                  }}</span>
+                  <span class="font-semibold tabular-nums text-amber-700 dark:text-amber-500">{{
                     formatCurrency(suggestedPrice)
                   }}</span>
                 </div>

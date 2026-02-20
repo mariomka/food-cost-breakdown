@@ -19,12 +19,14 @@ function handleAdded() {
 <template>
   <div class="space-y-5">
     <div class="flex items-center gap-3">
-      <h2 class="font-display text-2xl text-warm-800">{{ t('recipes.title') }}</h2>
-      <div class="h-px flex-1 bg-warm-200" />
+      <h2 class="font-display text-2xl text-warm-800 dark:text-warm-100">
+        {{ t('recipes.title') }}
+      </h2>
+      <div class="h-px flex-1 bg-warm-200 dark:bg-warm-700" />
       <Button
         variant="ghost"
         size="sm"
-        class="h-8 w-8 p-0 text-warm-400 hover:text-amber-700"
+        class="h-8 w-8 p-0 text-warm-400 hover:text-amber-700 dark:text-warm-500 dark:hover:text-amber-400"
         data-test="recipe-add-toggle"
         @click="showForm = !showForm"
       >
@@ -50,7 +52,7 @@ function handleAdded() {
     <Transition name="fade" mode="out-in">
       <div v-if="recipes.length === 0" class="py-14 text-center">
         <div
-          class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-warm-100"
+          class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-warm-100 dark:bg-warm-800"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -58,12 +60,12 @@ function handleAdded() {
             fill="none"
             stroke="currentColor"
             stroke-width="1.5"
-            class="h-5 w-5 text-warm-300"
+            class="h-5 w-5 text-warm-300 dark:text-warm-600"
           >
             <path d="M4 19h16M4 15h16M8 11h8M10 7h4" stroke-linecap="round" />
           </svg>
         </div>
-        <p class="text-sm text-warm-400">{{ t('recipes.empty') }}</p>
+        <p class="text-sm text-warm-400 dark:text-warm-500">{{ t('recipes.empty') }}</p>
       </div>
       <TransitionGroup v-else tag="div" name="list" class="space-y-3" data-test="recipe-list">
         <RecipeItem
