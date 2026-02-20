@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { Ingredient, UnitType } from '@/types'
 import { useIngredients } from '@/composables/useIngredients'
+import { useCurrencyFormat } from '@/composables/useCurrencyFormat'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -25,6 +26,7 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 const { updateIngredient } = useIngredients()
+const { formatCurrency } = useCurrencyFormat()
 
 const editing = ref(false)
 const editName = ref('')
@@ -164,7 +166,7 @@ function handleClick() {
               </div>
               <div class="ml-4 text-right">
                 <p class="text-sm font-semibold tabular-nums text-amber-700">
-                  ${{ ingredient.price.toFixed(2) }}
+                  {{ formatCurrency(ingredient.price) }}
                 </p>
               </div>
             </div>

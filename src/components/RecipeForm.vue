@@ -5,6 +5,7 @@ import type { RecipeIngredient } from '@/types'
 import { useIngredients } from '@/composables/useIngredients'
 import { useRecipes } from '@/composables/useRecipes'
 import { useCostCalculations } from '@/composables/useCostCalculations'
+import { useCurrencyFormat } from '@/composables/useCurrencyFormat'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -23,6 +24,7 @@ const { t } = useI18n()
 const { ingredients, getIngredient } = useIngredients()
 const { addRecipe } = useRecipes()
 const { getTotalCost, getCostPerServing, getSuggestedPrice } = useCostCalculations()
+const { formatCurrency } = useCurrencyFormat()
 
 const name = ref('')
 const servings = ref<number | undefined>()
@@ -205,17 +207,19 @@ function handleSubmit() {
     >
       <div class="flex justify-between py-0.5">
         <span class="text-warm-500">{{ t('recipes.totalCost') }}</span>
-        <span class="font-medium tabular-nums text-warm-700">${{ totalCost.toFixed(2) }}</span>
+        <span class="font-medium tabular-nums text-warm-700">{{ formatCurrency(totalCost) }}</span>
       </div>
       <div class="flex justify-between py-0.5">
         <span class="text-warm-500">{{ t('recipes.costPerServing') }}</span>
-        <span class="font-medium tabular-nums text-warm-700">${{ costPerServing.toFixed(2) }}</span>
+        <span class="font-medium tabular-nums text-warm-700">{{
+          formatCurrency(costPerServing)
+        }}</span>
       </div>
       <div class="mt-1 flex justify-between border-t border-warm-200 pt-1.5">
         <span class="font-medium text-warm-600">{{ t('recipes.suggestedPrice') }}</span>
-        <span class="font-semibold tabular-nums text-amber-700"
-          >${{ suggestedPrice.toFixed(2) }}</span
-        >
+        <span class="font-semibold tabular-nums text-amber-700">{{
+          formatCurrency(suggestedPrice)
+        }}</span>
       </div>
     </div>
 

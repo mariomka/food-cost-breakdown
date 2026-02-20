@@ -5,6 +5,7 @@ import type { Recipe, RecipeIngredient } from '@/types'
 import { useIngredients } from '@/composables/useIngredients'
 import { useRecipes } from '@/composables/useRecipes'
 import { useCostCalculations } from '@/composables/useCostCalculations'
+import { useCurrencyFormat } from '@/composables/useCurrencyFormat'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -30,6 +31,7 @@ const { t } = useI18n()
 const { ingredients, getIngredient } = useIngredients()
 const { updateRecipe } = useRecipes()
 const { getTotalCost, getCostPerServing, getSuggestedPrice } = useCostCalculations()
+const { formatCurrency } = useCurrencyFormat()
 
 const totalCost = computed(() => getTotalCost(props.recipe.ingredients, (id) => getIngredient(id)))
 const costPerServing = computed(() => getCostPerServing(totalCost.value, props.recipe.servings))
@@ -220,21 +222,21 @@ function handleClick() {
       <div v-if="editIngredients.length > 0" class="rounded-md bg-warm-50 p-2 text-xs">
         <div class="flex justify-between py-0.5">
           <span class="text-warm-500">{{ t('recipes.totalCost') }}</span>
-          <span class="font-medium tabular-nums text-warm-700"
-            >${{ editTotalCost.toFixed(2) }}</span
-          >
+          <span class="font-medium tabular-nums text-warm-700">{{
+            formatCurrency(editTotalCost)
+          }}</span>
         </div>
         <div class="flex justify-between py-0.5">
           <span class="text-warm-500">{{ t('recipes.costPerServing') }}</span>
-          <span class="font-medium tabular-nums text-warm-700"
-            >${{ editCostPerServing.toFixed(2) }}</span
-          >
+          <span class="font-medium tabular-nums text-warm-700">{{
+            formatCurrency(editCostPerServing)
+          }}</span>
         </div>
         <div class="mt-1 flex justify-between border-t border-warm-200 pt-1">
           <span class="font-medium text-warm-600">{{ t('recipes.suggestedPrice') }}</span>
-          <span class="font-semibold tabular-nums text-amber-700"
-            >${{ editSuggestedPrice.toFixed(2) }}</span
-          >
+          <span class="font-semibold tabular-nums text-amber-700">{{
+            formatCurrency(editSuggestedPrice)
+          }}</span>
         </div>
       </div>
 
@@ -285,17 +287,19 @@ function handleClick() {
               <div class="space-y-1 text-sm">
                 <div class="flex justify-between">
                   <span class="text-warm-400">{{ t('recipes.totalCost') }}</span>
-                  <span class="tabular-nums text-warm-600">${{ totalCost.toFixed(2) }}</span>
+                  <span class="tabular-nums text-warm-600">{{ formatCurrency(totalCost) }}</span>
                 </div>
                 <div class="flex justify-between">
                   <span class="text-warm-400">{{ t('recipes.costPerServing') }}</span>
-                  <span class="tabular-nums text-warm-600">${{ costPerServing.toFixed(2) }}</span>
+                  <span class="tabular-nums text-warm-600">{{
+                    formatCurrency(costPerServing)
+                  }}</span>
                 </div>
                 <div class="flex justify-between border-t border-warm-100 pt-1.5">
                   <span class="font-medium text-warm-600">{{ t('recipes.suggestedPrice') }}</span>
-                  <span class="font-semibold tabular-nums text-amber-700"
-                    >${{ suggestedPrice.toFixed(2) }}</span
-                  >
+                  <span class="font-semibold tabular-nums text-amber-700">{{
+                    formatCurrency(suggestedPrice)
+                  }}</span>
                 </div>
               </div>
             </div>
