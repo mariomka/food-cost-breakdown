@@ -5,6 +5,7 @@ import type { Ingredient, UnitType } from '@/types'
 import { useIngredients } from '@/composables/useIngredients'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import {
   Select,
@@ -86,26 +87,38 @@ function handleClick() {
         </span>
       </div>
 
-      <Input v-model="editName" data-test="ingredient-edit-name" class="h-8 text-sm" />
+      <div class="space-y-1">
+        <Label class="text-xs text-warm-500">{{ t('common.name') }}</Label>
+        <Input v-model="editName" data-test="ingredient-edit-name" class="h-8 text-sm" />
+      </div>
       <div class="grid grid-cols-3 gap-2">
-        <Input v-model.number="editPrice" type="number" step="0.01" min="0" class="h-8 text-sm" />
-        <Input
-          v-model.number="editQuantity"
-          type="number"
-          step="0.01"
-          min="0"
-          class="h-8 text-sm"
-        />
-        <Select v-model="editUnit">
-          <SelectTrigger class="h-8 text-sm">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem v-for="u in units" :key="u" :value="u">
-              {{ t(`units.${u}`) }}
-            </SelectItem>
-          </SelectContent>
-        </Select>
+        <div class="space-y-1">
+          <Label class="text-xs text-warm-500">{{ t('common.price') }}</Label>
+          <Input v-model.number="editPrice" type="number" step="0.01" min="0" class="h-8 text-sm" />
+        </div>
+        <div class="space-y-1">
+          <Label class="text-xs text-warm-500">{{ t('common.quantity') }}</Label>
+          <Input
+            v-model.number="editQuantity"
+            type="number"
+            step="0.01"
+            min="0"
+            class="h-8 text-sm"
+          />
+        </div>
+        <div class="space-y-1">
+          <Label class="text-xs text-warm-500">{{ t('common.unit') }}</Label>
+          <Select v-model="editUnit">
+            <SelectTrigger class="h-8 text-sm">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem v-for="u in units" :key="u" :value="u">
+                {{ t(`units.${u}`) }}
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
       <div class="flex gap-2">
         <Button type="submit" size="sm" class="h-8 flex-1 text-xs" data-test="ingredient-edit-save">

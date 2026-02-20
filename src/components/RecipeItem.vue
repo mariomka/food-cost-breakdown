@@ -7,6 +7,7 @@ import { useRecipes } from '@/composables/useRecipes'
 import { useCostCalculations } from '@/composables/useCostCalculations'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import {
   Select,
@@ -135,24 +136,33 @@ function handleClick() {
         </span>
       </div>
 
-      <Input v-model="editName" data-test="recipe-edit-name" class="h-8 text-sm" />
+      <div class="space-y-1">
+        <Label class="text-xs text-warm-500">{{ t('common.name') }}</Label>
+        <Input v-model="editName" data-test="recipe-edit-name" class="h-8 text-sm" />
+      </div>
 
       <div class="grid grid-cols-2 gap-2">
-        <Input
-          v-model.number="editServings"
-          type="number"
-          min="1"
-          class="h-8 text-sm"
-          :placeholder="t('recipes.servings')"
-        />
-        <Input
-          v-model.number="editMargin"
-          type="number"
-          min="0"
-          max="99"
-          class="h-8 text-sm"
-          :placeholder="t('recipes.targetMargin')"
-        />
+        <div class="space-y-1">
+          <Label class="text-xs text-warm-500">{{ t('recipes.servings') }}</Label>
+          <Input
+            v-model.number="editServings"
+            type="number"
+            min="1"
+            class="h-8 text-sm"
+            :placeholder="t('recipes.servings')"
+          />
+        </div>
+        <div class="space-y-1">
+          <Label class="text-xs text-warm-500">{{ t('recipes.targetMargin') }}</Label>
+          <Input
+            v-model.number="editMargin"
+            type="number"
+            min="0"
+            max="99"
+            class="h-8 text-sm"
+            :placeholder="t('recipes.targetMargin')"
+          />
+        </div>
       </div>
 
       <Separator />

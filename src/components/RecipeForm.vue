@@ -7,6 +7,7 @@ import { useRecipes } from '@/composables/useRecipes'
 import { useCostCalculations } from '@/composables/useCostCalculations'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectContent,
@@ -100,24 +101,44 @@ function handleSubmit() {
     class="space-y-3 rounded-lg border border-warm-200/80 bg-white p-4 shadow-sm"
     @submit.prevent="handleSubmit"
   >
-    <Input v-model="name" data-test="recipe-name" :placeholder="t('recipes.namePlaceholder')" />
+    <div class="space-y-1">
+      <Label for="recipe-name" class="text-xs text-warm-500">{{ t('common.name') }}</Label>
+      <Input
+        id="recipe-name"
+        v-model="name"
+        data-test="recipe-name"
+        :placeholder="t('recipes.namePlaceholder')"
+      />
+    </div>
 
     <div class="grid grid-cols-2 gap-2">
-      <Input
-        v-model.number="servings"
-        data-test="recipe-servings"
-        type="number"
-        min="1"
-        :placeholder="t('recipes.servings')"
-      />
-      <Input
-        v-model.number="targetMargin"
-        data-test="recipe-margin"
-        type="number"
-        min="0"
-        max="99"
-        :placeholder="t('recipes.targetMargin')"
-      />
+      <div class="space-y-1">
+        <Label for="recipe-servings" class="text-xs text-warm-500">{{
+          t('recipes.servings')
+        }}</Label>
+        <Input
+          id="recipe-servings"
+          v-model.number="servings"
+          data-test="recipe-servings"
+          type="number"
+          min="1"
+          :placeholder="t('recipes.servings')"
+        />
+      </div>
+      <div class="space-y-1">
+        <Label for="recipe-margin" class="text-xs text-warm-500">{{
+          t('recipes.targetMargin')
+        }}</Label>
+        <Input
+          id="recipe-margin"
+          v-model.number="targetMargin"
+          data-test="recipe-margin"
+          type="number"
+          min="0"
+          max="99"
+          :placeholder="t('recipes.targetMargin')"
+        />
+      </div>
     </div>
 
     <Separator class="!my-4" />
