@@ -20,9 +20,13 @@ const { t } = useI18n()
     <!-- Mobile: tabbed layout -->
     <div class="lg:hidden">
       <Tabs default-value="recipes">
-        <TabsList class="mb-6 grid w-full grid-cols-2">
-          <TabsTrigger value="recipes">{{ t('recipes.title') }}</TabsTrigger>
-          <TabsTrigger value="ingredients">{{ t('ingredients.title') }}</TabsTrigger>
+        <TabsList class="mb-6 grid w-full grid-cols-2 bg-warm-200/80">
+          <TabsTrigger value="recipes" class="data-[state=inactive]:text-warm-500">{{
+            t('recipes.title')
+          }}</TabsTrigger>
+          <TabsTrigger value="ingredients" class="data-[state=inactive]:text-warm-500">{{
+            t('ingredients.title')
+          }}</TabsTrigger>
         </TabsList>
         <TabsContent value="recipes">
           <slot name="recipes" />
