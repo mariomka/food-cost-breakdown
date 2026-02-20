@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useExportImport } from '@/composables/useExportImport'
+import { Button } from '@/components/ui/button'
 import {
   Select,
   SelectContent,
@@ -10,10 +12,24 @@ import {
 } from '@/components/ui/select'
 
 const { t, locale } = useI18n()
+const { exportData, importData } = useExportImport()
+const fileInput = ref<HTMLInputElement>()
 
 watch(locale, (val) => {
   localStorage.setItem('locale', val)
 })
+
+function triggerImport() {
+  fileInput.value?.click()
+}
+
+async function handleFileChange(event: Event) {
+  const input = event.target as HTMLInputElement
+  const file = input.files?.[0]
+  if (!file) return
+  await importData(file)
+  input.value = ''
+}
 </script>
 
 <template>
@@ -70,15 +86,31 @@ watch(locale, (val) => {
         </div>
       </div>
 
-      <Select v-model="locale">
-        <SelectTrigger class="w-24 border-warm-200 text-xs" data-test="language-switcher">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="en">English</SelectItem>
-          <SelectItem value="es">Español</SelectItem>
-        </SelectContent>
-      </Select>
+      <div class="flex items-center gap-2">
+        <input
+          ref="fileInput"
+          type="file"
+          accept=".json"
+          class="hidden"
+          @change="handleFileChange"
+        />
+        <Button variant="ghost" size="sm" class="h-8 text-xs text-warm-500" @click="exportData">
+          {{ t('common.export') }}
+        </Button>
+        <Button variant="ghost" size="sm" class="h-8 text-xs text-warm-500" @click="triggerImport">
+          {{ t('common.import') }}
+        </Button>
+
+        <Select v-model="locale">
+          <SelectTrigger class="w-24 border-warm-200 text-xs" data-test="language-switcher">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="en">English</SelectItem>
+            <SelectItem value="es">Español</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
     </div>
   </header>
 </template>

@@ -14,6 +14,8 @@ export default {
     unit: 'Unit',
     actions: 'Actions',
     noItems: 'No items yet',
+    export: 'Export',
+    import: 'Import',
   },
   units: {
     kg: 'kg',
