@@ -39,10 +39,8 @@ async function handleFileChange(event: Event) {
   try {
     await importData(file)
     toast.success(t('import.success'))
-  } catch (error) {
-    toast.error(t('import.error'), {
-      description: error instanceof Error ? error.message : undefined,
-    })
+  } catch {
+    toast.error(t('import.error'))
   }
   input.value = ''
 }

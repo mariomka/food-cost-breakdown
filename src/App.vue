@@ -13,6 +13,6 @@ useTheme()
     <main class="flex-1">
       <RouterView />
     </main>
-    <Toaster />
+    <Toaster position="top-center" />
   </div>
 </template>
