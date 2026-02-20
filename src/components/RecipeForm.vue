@@ -25,7 +25,7 @@ const { getTotalCost, getCostPerServing, getSuggestedPrice } = useCostCalculatio
 
 const name = ref('')
 const servings = ref<number | undefined>()
-const targetMargin = ref<number | undefined>()
+const targetMargin = ref<number>(30)
 
 const recipeIngredients = ref<RecipeIngredient[]>([])
 const selectedIngredientId = ref('')
@@ -88,7 +88,7 @@ function handleSubmit() {
   )
   name.value = ''
   servings.value = undefined
-  targetMargin.value = undefined
+  targetMargin.value = 30
   recipeIngredients.value = []
   emit('added')
 }
