@@ -31,6 +31,7 @@ export default {
     editHint: 'Click to edit',
     empty: 'No ingredients added yet',
     pricePerUnit: 'Price per {unit}',
+    editing: 'Editing',
   },
   recipes: {
     title: 'Recipes',

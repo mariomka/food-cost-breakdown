@@ -75,9 +75,17 @@ function handleClick() {
       v-if="editing"
       key="edit"
       data-test="ingredient-edit-form"
-      class="space-y-2 rounded-lg border border-amber-300 bg-amber-50/40 px-4 py-3"
+      class="space-y-3 rounded-lg border border-amber-200 bg-amber-50/20 p-4"
       @submit.prevent="saveEdit"
     >
+      <div class="mb-1 flex items-center gap-2">
+        <span
+          class="rounded-full bg-amber-100 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-amber-600 uppercase"
+        >
+          {{ t('ingredients.editing') }}
+        </span>
+      </div>
+
       <Input v-model="editName" data-test="ingredient-edit-name" class="h-8 text-sm" />
       <div class="grid grid-cols-3 gap-2">
         <Input v-model.number="editPrice" type="number" step="0.01" min="0" class="h-8 text-sm" />
@@ -99,15 +107,15 @@ function handleClick() {
           </SelectContent>
         </Select>
       </div>
-      <div class="flex gap-2 pt-1">
-        <Button type="submit" size="sm" class="h-7 flex-1 text-xs" data-test="ingredient-edit-save">
+      <div class="flex gap-2">
+        <Button type="submit" size="sm" class="h-8 flex-1 text-xs" data-test="ingredient-edit-save">
           {{ t('common.save') }}
         </Button>
         <Button
           type="button"
           variant="outline"
           size="sm"
-          class="h-7 flex-1 text-xs"
+          class="h-8 flex-1 text-xs"
           @click="cancelEdit"
         >
           {{ t('common.cancel') }}
@@ -116,7 +124,7 @@ function handleClick() {
           type="button"
           variant="ghost"
           size="sm"
-          class="h-7 px-2 text-xs text-destructive hover:bg-destructive/10 hover:text-destructive"
+          class="h-8 px-2 text-xs text-destructive hover:bg-destructive/10 hover:text-destructive"
           data-test="ingredient-edit-delete"
           @click="handleDelete"
         >

@@ -124,12 +124,12 @@ function handleClick() {
       v-if="editing"
       key="edit"
       data-test="recipe-edit-form"
-      class="space-y-3 rounded-lg border border-terracotta-200 bg-terracotta-50/20 p-4"
+      class="space-y-3 rounded-lg border border-amber-200 bg-amber-50/20 p-4"
       @submit.prevent="saveEdit"
     >
       <div class="mb-1 flex items-center gap-2">
         <span
-          class="rounded-full bg-terracotta-100 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-terracotta-600 uppercase"
+          class="rounded-full bg-amber-100 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-amber-600 uppercase"
         >
           {{ t('recipes.editing') }}
         </span>
