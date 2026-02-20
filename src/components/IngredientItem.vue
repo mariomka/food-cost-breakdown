@@ -179,14 +179,3 @@ function handleClick() {
     </div>
   </Transition>
 </template>
-
-<style scoped>
-.edit-enter-active,
-.edit-leave-active {
-  transition: opacity 0.15s ease;
-}
-.edit-enter-from,
-.edit-leave-to {
-  opacity: 0;
-}
-</style>
