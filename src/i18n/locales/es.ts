@@ -67,6 +67,10 @@ export default {
     },
     back: 'Volver',
   },
+  import: {
+    success: 'Datos importados correctamente',
+    error: 'Error al importar',
+  },
   language: {
     label: 'Idioma',
     en: 'English',

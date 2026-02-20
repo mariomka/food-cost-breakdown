@@ -67,6 +67,10 @@ export default {
     },
     back: 'Back',
   },
+  import: {
+    success: 'Data imported successfully',
+    error: 'Import failed',
+  },
   language: {
     label: 'Language',
     en: 'English',

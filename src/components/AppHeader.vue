@@ -2,6 +2,7 @@
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { RouterLink, useRouter } from 'vue-router'
+import { toast } from 'vue-sonner'
 import { useExportImport } from '@/composables/useExportImport'
 import AppLogo from '@/components/AppLogo.vue'
 import { Button } from '@/components/ui/button'
@@ -33,7 +34,14 @@ async function handleFileChange(event: Event) {
   const input = event.target as HTMLInputElement
   const file = input.files?.[0]
   if (!file) return
-  await importData(file)
+  try {
+    await importData(file)
+    toast.success(t('import.success'))
+  } catch (error) {
+    toast.error(t('import.error'), {
+      description: error instanceof Error ? error.message : undefined,
+    })
+  }
   input.value = ''
 }
 </script>

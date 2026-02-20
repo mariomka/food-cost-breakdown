@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AppHeader from '@/components/AppHeader.vue'
+import { Toaster } from '@/components/ui/sonner'
 import { RouterView } from 'vue-router'
 </script>
 
@@ -9,5 +10,6 @@ import { RouterView } from 'vue-router'
     <main class="flex-1">
       <RouterView />
     </main>
+    <Toaster />
   </div>
 </template>
