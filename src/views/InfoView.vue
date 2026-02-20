@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { Button } from '@/components/ui/button'
 
 const { t } = useI18n()
 </script>
@@ -32,9 +31,16 @@ const { t } = useI18n()
         </ul>
       </div>
 
-      <RouterLink to="/">
-        <Button variant="outline" size="sm"> &larr; {{ t('info.back') }} </Button>
-      </RouterLink>
+      <i18n-t keypath="info.openSource" tag="p" class="text-sm text-warm-600 dark:text-warm-300">
+        <a
+          href="https://github.com/mariomka/food-cost-breakdown"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-amber-600 underline hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300"
+        >
+          GitHub
+        </a>
+      </i18n-t>
     </div>
   </div>
 </template>

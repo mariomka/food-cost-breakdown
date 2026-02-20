@@ -58,16 +58,17 @@ export default {
   info: {
     title: 'Acerca de',
     description:
-      'Desglose de Costes ayuda a restaurantes, chefs y negocios de comida a calcular el coste real de sus platos. Desglosa costes de ingredientes, establece márgenes de ganancia y encuentra el precio justo para cada receta.',
-    features: 'Funcionalidades',
+      'Desglose de Costes te ayuda a saber cuánto cuesta realmente cada plato. Añade tus ingredientes, monta tus recetas y calcula el precio de venta ideal para obtener beneficios.',
+    features: 'Qué puedes hacer',
     featureList: {
-      ingredients: 'Registra precios y cantidades de ingredientes',
-      recipes: 'Crea recetas con cálculo automático de costes',
-      margin: 'Establece márgenes objetivo para obtener precios sugeridos',
-      export: 'Exporta e importa tus datos en formato JSON',
-      offline: 'Funciona completamente sin conexión — tus datos permanecen en tu navegador',
+      ingredients: 'Lleva un listado de tus ingredientes con sus precios',
+      recipes: 'Crea recetas y el coste se calcula solo',
+      margin: 'Pon tu margen de beneficio deseado y obtén un precio de venta sugerido',
+      export: 'Guarda y carga tus datos en un archivo para tener una copia de seguridad',
+      offline: 'No necesitas internet, todos tus datos se guardan en tu dispositivo',
       i18n: 'Disponible en inglés y español',
     },
+    openSource: 'Este proyecto es de código abierto. Puedes ver el código en {0}.',
     back: 'Volver',
   },
   import: {

@@ -58,16 +58,17 @@ export default {
   info: {
     title: 'About',
     description:
-      'Food Cost Breakdown helps restaurants, chefs, and food businesses calculate the true cost of their dishes. Break down ingredient costs, set profit margins, and find the right price for every recipe.',
-    features: 'Features',
+      'Food Cost Breakdown helps restaurants, chefs, and food businesses figure out how much each dish really costs. Add your ingredients, build your recipes, and get the right selling price to make a profit.',
+    features: 'What you can do',
     featureList: {
-      ingredients: 'Track ingredient prices and quantities',
-      recipes: 'Build recipes with automatic cost calculation',
-      margin: 'Set target margins to get suggested selling prices',
-      export: 'Export and import your data as JSON',
-      offline: 'Works entirely offline — your data stays in your browser',
+      ingredients: 'Keep a list of your ingredients with their prices',
+      recipes: 'Create recipes and see the cost calculated for you',
+      margin: 'Set your desired profit margin and get a suggested selling price',
+      export: 'Save and load your data as a file to keep a backup',
+      offline: 'No internet needed — all your data is saved on your device',
       i18n: 'Available in English and Spanish',
     },
+    openSource: 'This project is open source. You can check out the code on {0}.',
     back: 'Back',
   },
   import: {
