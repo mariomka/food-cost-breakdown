@@ -51,6 +51,21 @@ export default {
     saveRecipe: 'Save Recipe',
     editing: 'Editing',
   },
+  info: {
+    title: 'About',
+    description:
+      'Food Cost Breakdown helps restaurants, chefs, and food businesses calculate the true cost of their dishes. Break down ingredient costs, set profit margins, and find the right price for every recipe.',
+    features: 'Features',
+    featureList: {
+      ingredients: 'Track ingredient prices and quantities',
+      recipes: 'Build recipes with automatic cost calculation',
+      margin: 'Set target margins to get suggested selling prices',
+      export: 'Export and import your data as JSON',
+      offline: 'Works entirely offline — your data stays in your browser',
+      i18n: 'Available in English and Spanish',
+    },
+    back: 'Back',
+  },
   language: {
     en: 'English',
     es: 'Español',

@@ -94,6 +94,11 @@ async function handleFileChange(event: Event) {
           class="hidden"
           @change="handleFileChange"
         />
+        <RouterLink to="/info">
+          <Button variant="ghost" size="sm" class="h-8 text-xs text-warm-500">
+            {{ t('info.title') }}
+          </Button>
+        </RouterLink>
         <Button variant="ghost" size="sm" class="h-8 text-xs text-warm-500" @click="exportData">
           {{ t('common.export') }}
         </Button>
