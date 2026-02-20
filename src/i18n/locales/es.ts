@@ -1,6 +1,6 @@
 export default {
   app: {
-    title: 'Desglose de Costos',
+    title: 'Desglose de Costes',
     subtitle: 'Calculadora de escandallos',
   },
   common: {
@@ -42,8 +42,8 @@ export default {
     servings: 'Porciones',
     servingCount: '1 porción | {count} porciones',
     targetMargin: 'Margen Objetivo (%)',
-    totalCost: 'Costo Total',
-    costPerServing: 'Costo por Porción',
+    totalCost: 'Coste Total',
+    costPerServing: 'Coste por Porción',
     suggestedPrice: 'Precio Sugerido',
     addIngredient: 'Agregar ingrediente a la receta',
     selectIngredient: 'Seleccionar ingrediente',
@@ -55,11 +55,11 @@ export default {
   info: {
     title: 'Acerca de',
     description:
-      'Desglose de Costos ayuda a restaurantes, chefs y negocios de comida a calcular el costo real de sus platos. Desglosa costos de ingredientes, establece márgenes de ganancia y encuentra el precio justo para cada receta.',
+      'Desglose de Costes ayuda a restaurantes, chefs y negocios de comida a calcular el coste real de sus platos. Desglosa costes de ingredientes, establece márgenes de ganancia y encuentra el precio justo para cada receta.',
     features: 'Funcionalidades',
     featureList: {
       ingredients: 'Registra precios y cantidades de ingredientes',
-      recipes: 'Crea recetas con cálculo automático de costos',
+      recipes: 'Crea recetas con cálculo automático de costes',
       margin: 'Establece márgenes objetivo para obtener precios sugeridos',
       export: 'Exporta e importa tus datos en formato JSON',
       offline: 'Funciona completamente sin conexión — tus datos permanecen en tu navegador',
