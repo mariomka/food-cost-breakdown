@@ -1,17 +1,22 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import { useExportImport } from '@/composables/useExportImport'
 import { Button } from '@/components/ui/button'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 
 const { t, locale } = useI18n()
+const router = useRouter()
 const { exportData, importData } = useExportImport()
 const fileInput = ref<HTMLInputElement>()
 
@@ -86,36 +91,47 @@ async function handleFileChange(event: Event) {
         </div>
       </div>
 
-      <div class="flex items-center gap-2">
-        <input
-          ref="fileInput"
-          type="file"
-          accept=".json"
-          class="hidden"
-          @change="handleFileChange"
-        />
-        <RouterLink to="/info">
-          <Button variant="ghost" size="sm" class="h-8 text-xs text-warm-500">
-            {{ t('info.title') }}
-          </Button>
-        </RouterLink>
-        <Button variant="ghost" size="sm" class="h-8 text-xs text-warm-500" @click="exportData">
-          {{ t('common.export') }}
-        </Button>
-        <Button variant="ghost" size="sm" class="h-8 text-xs text-warm-500" @click="triggerImport">
-          {{ t('common.import') }}
-        </Button>
+      <input ref="fileInput" type="file" accept=".json" class="hidden" @change="handleFileChange" />
 
-        <Select v-model="locale">
-          <SelectTrigger class="w-24 border-warm-200 text-xs" data-test="language-switcher">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="en">English</SelectItem>
-            <SelectItem value="es">Español</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+      <DropdownMenu>
+        <DropdownMenuTrigger as-child>
+          <Button variant="ghost" size="sm" class="h-9 w-9 p-0" data-test="menu-trigger">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              class="h-5 w-5 text-warm-500"
+            >
+              <circle cx="12" cy="5" r="1" />
+              <circle cx="12" cy="12" r="1" />
+              <circle cx="12" cy="19" r="1" />
+            </svg>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" class="w-48">
+          <DropdownMenuItem @click="router.push('/info')">
+            {{ t('info.title') }}
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem @click="exportData">
+            {{ t('common.export') }}
+          </DropdownMenuItem>
+          <DropdownMenuItem @click="triggerImport">
+            {{ t('common.import') }}
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuLabel class="text-xs font-normal text-warm-400">
+            {{ t('language.label') }}
+          </DropdownMenuLabel>
+          <DropdownMenuRadioGroup v-model="locale">
+            <DropdownMenuRadioItem value="en">English</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="es">Español</DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   </header>
 </template>

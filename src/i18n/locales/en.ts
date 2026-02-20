@@ -67,6 +67,7 @@ export default {
     back: 'Back',
   },
   language: {
+    label: 'Language',
     en: 'English',
     es: 'Español',
   },
