@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import { useExportImport } from '@/composables/useExportImport'
 import { Button } from '@/components/ui/button'
 import {
@@ -40,7 +40,7 @@ async function handleFileChange(event: Event) {
 <template>
   <header class="sticky top-0 z-50 border-b border-warm-200/80 bg-white/95 backdrop-blur-sm">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-      <div class="flex items-center gap-3">
+      <RouterLink to="/" class="flex items-center gap-3 no-underline">
         <div
           class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-amber-600 to-amber-800 shadow-sm"
         >
@@ -89,7 +89,7 @@ async function handleFileChange(event: Event) {
             {{ t('app.subtitle') }}
           </p>
         </div>
-      </div>
+      </RouterLink>
 
       <input ref="fileInput" type="file" accept=".json" class="hidden" @change="handleFileChange" />
 
