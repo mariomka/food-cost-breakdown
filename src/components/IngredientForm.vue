@@ -13,6 +13,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 
+const emit = defineEmits<{ added: [] }>()
+
 const { t } = useI18n()
 const { addIngredient } = useIngredients()
 
@@ -30,6 +32,7 @@ function handleSubmit() {
   price.value = undefined
   quantity.value = undefined
   unit.value = 'kg'
+  emit('added')
 }
 </script>
 

@@ -16,6 +16,8 @@ import {
 } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 
+const emit = defineEmits<{ added: [] }>()
+
 const { t } = useI18n()
 const { ingredients, getIngredient } = useIngredients()
 const { addRecipe } = useRecipes()
@@ -88,6 +90,7 @@ function handleSubmit() {
   servings.value = undefined
   targetMargin.value = undefined
   recipeIngredients.value = []
+  emit('added')
 }
 </script>
 

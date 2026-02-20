@@ -10,17 +10,9 @@ const { t } = useI18n()
     <!-- Desktop: split-screen layout -->
     <div class="hidden gap-10 lg:grid lg:grid-cols-2">
       <section>
-        <div class="mb-6 flex items-center gap-3">
-          <h2 class="font-display text-2xl text-warm-800">{{ t('recipes.title') }}</h2>
-          <div class="h-px flex-1 bg-warm-200" />
-        </div>
         <slot name="recipes" />
       </section>
       <section>
-        <div class="mb-6 flex items-center gap-3">
-          <h2 class="font-display text-2xl text-warm-800">{{ t('ingredients.title') }}</h2>
-          <div class="h-px flex-1 bg-warm-200" />
-        </div>
         <slot name="ingredients" />
       </section>
     </div>
