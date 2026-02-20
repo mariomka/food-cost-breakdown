@@ -69,79 +69,101 @@ function handleClick() {
 </script>
 
 <template>
-  <!-- Edit mode -->
-  <form
-    v-if="editing"
-    data-test="ingredient-edit-form"
-    class="space-y-2 rounded-lg border border-amber-300 bg-amber-50/40 px-4 py-3"
-    @submit.prevent="saveEdit"
-  >
-    <Input v-model="editName" data-test="ingredient-edit-name" class="h-8 text-sm" />
-    <div class="grid grid-cols-3 gap-2">
-      <Input v-model.number="editPrice" type="number" step="0.01" min="0" class="h-8 text-sm" />
-      <Input v-model.number="editQuantity" type="number" step="0.01" min="0" class="h-8 text-sm" />
-      <Select v-model="editUnit">
-        <SelectTrigger class="h-8 text-sm">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem v-for="u in units" :key="u" :value="u">
-            {{ t(`units.${u}`) }}
-          </SelectItem>
-        </SelectContent>
-      </Select>
-    </div>
-    <div class="flex gap-2 pt-1">
-      <Button type="submit" size="sm" class="h-7 flex-1 text-xs" data-test="ingredient-edit-save">
-        {{ t('common.save') }}
-      </Button>
-      <Button
-        type="button"
-        variant="outline"
-        size="sm"
-        class="h-7 flex-1 text-xs"
-        @click="cancelEdit"
-      >
-        {{ t('common.cancel') }}
-      </Button>
-      <Button
-        type="button"
-        variant="ghost"
-        size="sm"
-        class="h-7 px-2 text-xs text-destructive hover:bg-destructive/10 hover:text-destructive"
-        data-test="ingredient-edit-delete"
-        @click="handleDelete"
-      >
-        {{ t('common.delete') }}
-      </Button>
-    </div>
-  </form>
-
-  <!-- Display mode -->
-  <TooltipProvider v-else>
-    <Tooltip>
-      <TooltipTrigger as-child>
-        <div
-          data-test="ingredient-item"
-          class="group flex cursor-pointer items-center justify-between rounded-lg border border-warm-200/60 bg-white px-4 py-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all hover:border-warm-300 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
-          @click="handleClick"
+  <Transition name="edit" mode="out-in">
+    <!-- Edit mode -->
+    <form
+      v-if="editing"
+      key="edit"
+      data-test="ingredient-edit-form"
+      class="space-y-2 rounded-lg border border-amber-300 bg-amber-50/40 px-4 py-3"
+      @submit.prevent="saveEdit"
+    >
+      <Input v-model="editName" data-test="ingredient-edit-name" class="h-8 text-sm" />
+      <div class="grid grid-cols-3 gap-2">
+        <Input v-model.number="editPrice" type="number" step="0.01" min="0" class="h-8 text-sm" />
+        <Input
+          v-model.number="editQuantity"
+          type="number"
+          step="0.01"
+          min="0"
+          class="h-8 text-sm"
+        />
+        <Select v-model="editUnit">
+          <SelectTrigger class="h-8 text-sm">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem v-for="u in units" :key="u" :value="u">
+              {{ t(`units.${u}`) }}
+            </SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div class="flex gap-2 pt-1">
+        <Button type="submit" size="sm" class="h-7 flex-1 text-xs" data-test="ingredient-edit-save">
+          {{ t('common.save') }}
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          class="h-7 flex-1 text-xs"
+          @click="cancelEdit"
         >
-          <div class="min-w-0 flex-1">
-            <p class="truncate text-sm font-medium text-warm-800">{{ ingredient.name }}</p>
-            <p class="text-xs text-warm-400">
-              {{ ingredient.quantity }} {{ t(`units.${ingredient.unit}`) }}
-            </p>
-          </div>
-          <div class="ml-4 text-right">
-            <p class="text-sm font-semibold tabular-nums text-amber-700">
-              ${{ ingredient.price.toFixed(2) }}
-            </p>
-          </div>
-        </div>
-      </TooltipTrigger>
-      <TooltipContent>
-        <p>{{ t('ingredients.editHint') }}</p>
-      </TooltipContent>
-    </Tooltip>
-  </TooltipProvider>
+          {{ t('common.cancel') }}
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          class="h-7 px-2 text-xs text-destructive hover:bg-destructive/10 hover:text-destructive"
+          data-test="ingredient-edit-delete"
+          @click="handleDelete"
+        >
+          {{ t('common.delete') }}
+        </Button>
+      </div>
+    </form>
+
+    <!-- Display mode -->
+    <div v-else key="display">
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger as-child>
+            <div
+              data-test="ingredient-item"
+              class="group flex cursor-pointer items-center justify-between rounded-lg border border-warm-200/60 bg-white px-4 py-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all hover:border-warm-300 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
+              @click="handleClick"
+            >
+              <div class="min-w-0 flex-1">
+                <p class="truncate text-sm font-medium text-warm-800">{{ ingredient.name }}</p>
+                <p class="text-xs text-warm-400">
+                  {{ ingredient.quantity }} {{ t(`units.${ingredient.unit}`) }}
+                </p>
+              </div>
+              <div class="ml-4 text-right">
+                <p class="text-sm font-semibold tabular-nums text-amber-700">
+                  ${{ ingredient.price.toFixed(2) }}
+                </p>
+              </div>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{{ t('ingredients.editHint') }}</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    </div>
+  </Transition>
 </template>
+
+<style scoped>
+.edit-enter-active,
+.edit-leave-active {
+  transition: opacity 0.15s ease;
+}
+.edit-enter-from,
+.edit-leave-to {
+  opacity: 0;
+}
+</style>
