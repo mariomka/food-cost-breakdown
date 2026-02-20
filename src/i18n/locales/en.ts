@@ -50,6 +50,6 @@ export default {
   },
   language: {
     en: 'English',
-    es: 'Spanish',
+    es: 'Español',
   },
 }

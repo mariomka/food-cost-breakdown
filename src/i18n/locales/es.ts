@@ -49,7 +49,7 @@ export default {
     editing: 'Editando',
   },
   language: {
-    en: 'Inglés',
+    en: 'English',
     es: 'Español',
   },
 }

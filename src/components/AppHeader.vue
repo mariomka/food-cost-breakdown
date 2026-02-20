@@ -70,8 +70,8 @@ const { t, locale } = useI18n()
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="en">{{ t('language.en') }}</SelectItem>
-          <SelectItem value="es">{{ t('language.es') }}</SelectItem>
+          <SelectItem value="en">English</SelectItem>
+          <SelectItem value="es">Español</SelectItem>
         </SelectContent>
       </Select>
     </div>
