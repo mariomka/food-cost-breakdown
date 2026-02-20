@@ -1,29 +1,8 @@
-import type { RecipeIngredient, Ingredient, UnitType } from '@/types'
-
-const UNIT_CONVERSIONS: Record<string, number> = {
-  'kg->g': 1000,
-  'g->kg': 0.001,
-  'L->mL': 1000,
-  'mL->L': 0.001,
-}
-
-function convertQuantity(quantity: number, fromUnit: UnitType, toUnit: UnitType): number {
-  if (fromUnit === toUnit) return quantity
-  const key = `${fromUnit}->${toUnit}`
-  const factor = UNIT_CONVERSIONS[key]
-  if (factor) return quantity * factor
-  return quantity
-}
+import type { RecipeIngredient, Ingredient } from '@/types'
 
 export function useCostCalculations() {
   function getIngredientCost(recipeIngredient: RecipeIngredient, ingredient: Ingredient): number {
-    const convertedQuantity = convertQuantity(
-      recipeIngredient.quantity,
-      recipeIngredient.unit,
-      ingredient.unit,
-    )
-    const pricePerUnit = ingredient.price / ingredient.quantity
-    return pricePerUnit * convertedQuantity
+    return (ingredient.price / ingredient.quantity) * recipeIngredient.quantity
   }
 
   function getTotalCost(

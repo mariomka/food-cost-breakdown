@@ -97,7 +97,6 @@ function addEditIngredient() {
   editIngredients.value.push({
     ingredientId: selectedIngredientId.value,
     quantity: 0,
-    unit: ingredient.unit,
   })
   selectedIngredientId.value = ''
 }
@@ -186,7 +185,9 @@ function handleClick() {
           class="h-7 w-20 text-xs"
           placeholder="Qty"
         />
-        <span class="text-xs text-warm-400">{{ t(`units.${ri.unit}`) }}</span>
+        <span class="text-xs text-warm-400">{{
+          t(`units.${getIngredient(ri.ingredientId)?.unit}`)
+        }}</span>
         <Button
           type="button"
           variant="ghost"

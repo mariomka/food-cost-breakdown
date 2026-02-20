@@ -19,23 +19,13 @@ describe('useCostCalculations', () => {
   const getIngredientById = (id: string) => ingredientsMap[id]
 
   describe('getIngredientCost', () => {
-    it('calculates cost for same unit', () => {
-      const ri: RecipeIngredient = { ingredientId: '1', quantity: 0.5, unit: 'kg' }
+    it('calculates cost for ingredient', () => {
+      const ri: RecipeIngredient = { ingredientId: '1', quantity: 0.5 }
       expect(getIngredientCost(ri, flour)).toBeCloseTo(1.0)
-    })
-
-    it('calculates cost with unit conversion (g to kg)', () => {
-      const ri: RecipeIngredient = { ingredientId: '1', quantity: 500, unit: 'g' }
-      expect(getIngredientCost(ri, flour)).toBeCloseTo(1.0)
-    })
-
-    it('calculates cost with unit conversion (mL to L)', () => {
-      const ri: RecipeIngredient = { ingredientId: '2', quantity: 250, unit: 'mL' }
-      expect(getIngredientCost(ri, milk)).toBeCloseTo(0.375)
     })
 
     it('calculates cost for unit-based ingredients', () => {
-      const ri: RecipeIngredient = { ingredientId: '3', quantity: 3, unit: 'unit' }
+      const ri: RecipeIngredient = { ingredientId: '3', quantity: 3 }
       expect(getIngredientCost(ri, eggs)).toBeCloseTo(0.75)
     })
   })
@@ -43,18 +33,16 @@ describe('useCostCalculations', () => {
   describe('getTotalCost', () => {
     it('sums costs of all recipe ingredients', () => {
       const recipeIngredients: RecipeIngredient[] = [
-        { ingredientId: '1', quantity: 0.5, unit: 'kg' },
-        { ingredientId: '2', quantity: 250, unit: 'mL' },
-        { ingredientId: '3', quantity: 3, unit: 'unit' },
+        { ingredientId: '1', quantity: 0.5 },
+        { ingredientId: '2', quantity: 0.25 },
+        { ingredientId: '3', quantity: 3 },
       ]
       const total = getTotalCost(recipeIngredients, getIngredientById)
       expect(total).toBeCloseTo(1.0 + 0.375 + 0.75)
     })
 
     it('skips missing ingredients', () => {
-      const recipeIngredients: RecipeIngredient[] = [
-        { ingredientId: 'missing', quantity: 1, unit: 'kg' },
-      ]
+      const recipeIngredients: RecipeIngredient[] = [{ ingredientId: 'missing', quantity: 1 }]
       expect(getTotalCost(recipeIngredients, getIngredientById)).toBe(0)
     })
 

@@ -39,7 +39,6 @@ function onIngredientSelected(value: string | number | bigint | Record<string, a
   recipeIngredients.value.push({
     ingredientId,
     quantity: 0,
-    unit: ingredient.unit,
   })
   selectedIngredientId.value = ''
 }
@@ -78,10 +77,9 @@ function handleSubmit() {
   if (!name.value.trim() || recipeIngredients.value.length === 0) return
   addRecipe(
     name.value.trim(),
-    recipeIngredients.value.map(({ ingredientId, quantity, unit }) => ({
+    recipeIngredients.value.map(({ ingredientId, quantity }) => ({
       ingredientId,
       quantity,
-      unit,
     })),
     targetMargin.value || 0,
     servings.value || 1,
@@ -156,7 +154,9 @@ function handleSubmit() {
           class="w-20"
           placeholder="Qty"
         />
-        <span class="w-12 text-center text-xs text-warm-400">{{ t(`units.${ri.unit}`) }}</span>
+        <span class="w-12 text-center text-xs text-warm-400">{{
+          t(`units.${getIngredient(ri.ingredientId)?.unit}`)
+        }}</span>
         <Button
           type="button"
           variant="ghost"

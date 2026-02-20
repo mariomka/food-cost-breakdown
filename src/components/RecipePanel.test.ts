@@ -38,7 +38,7 @@ describe('RecipePanel', () => {
     const ingId = ingredients.value[0]!.id
 
     const { addRecipe } = useRecipes()
-    addRecipe('Bread', [{ ingredientId: ingId, quantity: 0.5, unit: 'kg' }], 30, 4)
+    addRecipe('Bread', [{ ingredientId: ingId, quantity: 0.5 }], 30, 4)
 
     const wrapper = createWrapper()
     expect(wrapper.find('[data-test="recipe-list"]').exists()).toBe(true)

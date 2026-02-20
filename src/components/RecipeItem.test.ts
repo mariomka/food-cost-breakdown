@@ -9,7 +9,7 @@ import { useIngredients } from '@/composables/useIngredients'
 const recipe: Recipe = {
   id: 'recipe-1',
   name: 'Bread',
-  ingredients: [{ ingredientId: 'ing-1', quantity: 0.5, unit: 'kg' }],
+  ingredients: [{ ingredientId: 'ing-1', quantity: 0.5 }],
   targetMargin: 30,
   servings: 4,
 }

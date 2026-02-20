@@ -15,7 +15,7 @@ describe('useRecipes', () => {
 
   it('adds a recipe', () => {
     const { recipes, addRecipe } = useRecipes()
-    addRecipe('Bread', [{ ingredientId: '1', quantity: 0.5, unit: 'kg' }], 30, 4)
+    addRecipe('Bread', [{ ingredientId: '1', quantity: 0.5 }], 30, 4)
     expect(recipes.value).toHaveLength(1)
     expect(recipes.value[0]!.name).toBe('Bread')
     expect(recipes.value[0]!.targetMargin).toBe(30)
@@ -56,12 +56,12 @@ describe('useRecipes', () => {
 
   it('removes ingredient from all recipes', () => {
     const { recipes, addRecipe, removeIngredientFromAllRecipes } = useRecipes()
-    addRecipe('Bread', [{ ingredientId: 'ing-1', quantity: 0.5, unit: 'kg' }], 30, 4)
+    addRecipe('Bread', [{ ingredientId: 'ing-1', quantity: 0.5 }], 30, 4)
     addRecipe(
       'Cake',
       [
-        { ingredientId: 'ing-1', quantity: 0.3, unit: 'kg' },
-        { ingredientId: 'ing-2', quantity: 0.2, unit: 'L' },
+        { ingredientId: 'ing-1', quantity: 0.3 },
+        { ingredientId: 'ing-2', quantity: 0.2 },
       ],
       40,
       8,
