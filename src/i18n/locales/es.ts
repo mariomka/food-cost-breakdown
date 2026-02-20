@@ -22,6 +22,9 @@ export default {
     g: 'g',
     L: 'L',
     mL: 'mL',
+    lb: 'lb',
+    oz: 'oz',
+    'fl oz': 'fl oz',
     unit: 'unidad',
   },
   ingredients: {

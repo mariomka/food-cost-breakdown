@@ -24,7 +24,7 @@ const price = ref<number | undefined>()
 const quantity = ref<number | undefined>()
 const unit = ref<UnitType>('g')
 
-const units: UnitType[] = ['kg', 'g', 'L', 'mL', 'unit']
+const units: UnitType[] = ['kg', 'g', 'L', 'mL', 'lb', 'oz', 'fl oz', 'unit']
 
 function handleSubmit() {
   if (!name.value.trim() || !price.value || !quantity.value) return

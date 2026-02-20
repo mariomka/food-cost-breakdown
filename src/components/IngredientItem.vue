@@ -34,7 +34,7 @@ const editPrice = ref<number>(0)
 const editQuantity = ref<number>(0)
 const editUnit = ref<UnitType>('kg')
 
-const units: UnitType[] = ['kg', 'g', 'L', 'mL', 'unit']
+const units: UnitType[] = ['kg', 'g', 'L', 'mL', 'lb', 'oz', 'fl oz', 'unit']
 
 function startEdit() {
   editName.value = props.ingredient.name

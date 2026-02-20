@@ -1,4 +1,4 @@
-export type UnitType = 'kg' | 'g' | 'L' | 'mL' | 'unit'
+export type UnitType = 'kg' | 'g' | 'L' | 'mL' | 'lb' | 'oz' | 'fl oz' | 'unit'
 
 export interface Ingredient {
   id: string
