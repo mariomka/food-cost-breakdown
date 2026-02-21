@@ -207,29 +207,25 @@ function handleClick() {
           </TabsList>
         </Tabs>
         <div v-if="editPricingMode === 'margin'" class="space-y-1">
-          <Label class="text-xs text-warm-500 dark:text-warm-400">{{
-            t('recipes.targetMargin')
-          }}</Label>
+          <Label class="text-xs text-warm-500 dark:text-warm-400">{{ t('recipes.margin') }}</Label>
           <Input
             v-model.number="editMargin"
             type="number"
             min="0"
             max="99"
             class="h-8 text-sm"
-            :placeholder="t('recipes.targetMargin')"
+            :placeholder="t('recipes.margin')"
           />
         </div>
         <div v-else class="space-y-1">
-          <Label class="text-xs text-warm-500 dark:text-warm-400">{{
-            t('recipes.targetPrice')
-          }}</Label>
+          <Label class="text-xs text-warm-500 dark:text-warm-400">{{ t('recipes.price') }}</Label>
           <Input
             v-model.number="editTargetPrice"
             type="number"
             step="0.01"
             min="0"
             class="h-8 text-sm"
-            :placeholder="t('recipes.targetPrice')"
+            :placeholder="t('recipes.price')"
           />
         </div>
       </div>
@@ -308,18 +304,18 @@ function handleClick() {
               class="text-warm-600 dark:text-warm-300"
               :class="
                 editPricingMode === 'margin'
-                  ? 'font-medium'
-                  : 'italic text-warm-400 dark:text-warm-500'
+                  ? 'italic text-warm-400 dark:text-warm-500'
+                  : 'font-medium'
               "
             >
-              {{ t('recipes.targetMargin') }}
+              {{ t('recipes.margin') }}
             </span>
             <span
               class="tabular-nums"
               :class="[
                 editPricingMode === 'margin'
-                  ? 'font-semibold text-amber-700 dark:text-amber-500'
-                  : 'italic text-warm-400 dark:text-warm-500',
+                  ? 'italic text-warm-400 dark:text-warm-500'
+                  : 'font-semibold text-amber-700 dark:text-amber-500',
                 editCalculatedMargin < 0 ? 'text-red-600 dark:text-red-400' : '',
               ]"
             >
@@ -331,18 +327,18 @@ function handleClick() {
               class="text-warm-600 dark:text-warm-300"
               :class="
                 editPricingMode === 'price'
-                  ? 'font-medium'
-                  : 'italic text-warm-400 dark:text-warm-500'
+                  ? 'italic text-warm-400 dark:text-warm-500'
+                  : 'font-medium'
               "
             >
-              {{ t('recipes.suggestedPrice') }}
+              {{ t('recipes.price') }}
             </span>
             <span
               class="tabular-nums"
               :class="
                 editPricingMode === 'price'
-                  ? 'font-semibold text-amber-700 dark:text-amber-500'
-                  : 'italic text-warm-400 dark:text-warm-500'
+                  ? 'italic text-warm-400 dark:text-warm-500'
+                  : 'font-semibold text-amber-700 dark:text-amber-500'
               "
             >
               {{ formatCurrency(editSuggestedPrice) }}
@@ -459,18 +455,18 @@ function handleClick() {
                     <span
                       :class="
                         isPriceMode
-                          ? 'italic text-warm-400 dark:text-warm-500'
-                          : 'font-medium text-warm-600 dark:text-warm-300'
+                          ? 'font-medium text-warm-600 dark:text-warm-300'
+                          : 'italic text-warm-400 dark:text-warm-500'
                       "
                     >
-                      {{ t('recipes.targetMargin') }}
+                      {{ t('recipes.margin') }}
                     </span>
                     <span
                       class="tabular-nums"
                       :class="[
                         isPriceMode
-                          ? 'italic text-warm-400 dark:text-warm-500'
-                          : 'font-semibold text-amber-700 dark:text-amber-500',
+                          ? 'font-semibold text-amber-700 dark:text-amber-500'
+                          : 'italic text-warm-400 dark:text-warm-500',
                         displayMargin < 0 ? 'text-red-600 dark:text-red-400' : '',
                       ]"
                     >
@@ -481,18 +477,18 @@ function handleClick() {
                     <span
                       :class="
                         isPriceMode
-                          ? 'font-medium text-warm-600 dark:text-warm-300'
-                          : 'italic text-warm-400 dark:text-warm-500'
+                          ? 'italic text-warm-400 dark:text-warm-500'
+                          : 'font-medium text-warm-600 dark:text-warm-300'
                       "
                     >
-                      {{ t('recipes.suggestedPrice') }}
+                      {{ t('recipes.price') }}
                     </span>
                     <span
                       class="tabular-nums"
                       :class="
                         isPriceMode
-                          ? 'font-semibold text-amber-700 dark:text-amber-500'
-                          : 'italic text-warm-400 dark:text-warm-500'
+                          ? 'italic text-warm-400 dark:text-warm-500'
+                          : 'font-semibold text-amber-700 dark:text-amber-500'
                       "
                     >
                       {{ formatCurrency(displayPrice) }}

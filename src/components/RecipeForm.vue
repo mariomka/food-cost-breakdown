@@ -160,7 +160,7 @@ function handleSubmit() {
       </Tabs>
       <div v-if="pricingMode === 'margin'" class="space-y-1">
         <Label for="recipe-margin" class="text-xs text-warm-500 dark:text-warm-400">{{
-          t('recipes.targetMargin')
+          t('recipes.margin')
         }}</Label>
         <Input
           id="recipe-margin"
@@ -169,12 +169,12 @@ function handleSubmit() {
           type="number"
           min="0"
           max="99"
-          :placeholder="t('recipes.targetMargin')"
+          :placeholder="t('recipes.margin')"
         />
       </div>
       <div v-else class="space-y-1">
         <Label for="recipe-price" class="text-xs text-warm-500 dark:text-warm-400">{{
-          t('recipes.targetPrice')
+          t('recipes.price')
         }}</Label>
         <Input
           id="recipe-price"
@@ -183,7 +183,7 @@ function handleSubmit() {
           type="number"
           step="0.01"
           min="0"
-          :placeholder="t('recipes.targetPrice')"
+          :placeholder="t('recipes.price')"
         />
       </div>
     </div>
@@ -267,17 +267,17 @@ function handleSubmit() {
           <span
             class="text-warm-600 dark:text-warm-300"
             :class="
-              pricingMode === 'margin' ? 'font-medium' : 'italic text-warm-400 dark:text-warm-500'
+              pricingMode === 'margin' ? 'italic text-warm-400 dark:text-warm-500' : 'font-medium'
             "
           >
-            {{ t('recipes.targetMargin') }}
+            {{ t('recipes.margin') }}
           </span>
           <span
             class="tabular-nums"
             :class="[
               pricingMode === 'margin'
-                ? 'font-semibold text-amber-700 dark:text-amber-500'
-                : 'italic text-warm-400 dark:text-warm-500',
+                ? 'italic text-warm-400 dark:text-warm-500'
+                : 'font-semibold text-amber-700 dark:text-amber-500',
               calculatedMargin < 0 ? 'text-red-600 dark:text-red-400' : '',
             ]"
           >
@@ -288,17 +288,17 @@ function handleSubmit() {
           <span
             class="text-warm-600 dark:text-warm-300"
             :class="
-              pricingMode === 'price' ? 'font-medium' : 'italic text-warm-400 dark:text-warm-500'
+              pricingMode === 'price' ? 'italic text-warm-400 dark:text-warm-500' : 'font-medium'
             "
           >
-            {{ t('recipes.suggestedPrice') }}
+            {{ t('recipes.price') }}
           </span>
           <span
             class="tabular-nums"
             :class="
               pricingMode === 'price'
-                ? 'font-semibold text-amber-700 dark:text-amber-500'
-                : 'italic text-warm-400 dark:text-warm-500'
+                ? 'italic text-warm-400 dark:text-warm-500'
+                : 'font-semibold text-amber-700 dark:text-amber-500'
             "
           >
             {{ formatCurrency(suggestedPrice) }}
