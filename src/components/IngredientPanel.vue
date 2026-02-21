@@ -9,7 +9,7 @@ import IngredientForm from './IngredientForm.vue'
 import IngredientItem from './IngredientItem.vue'
 
 const { t } = useI18n()
-const { ingredients, removeIngredient } = useIngredients()
+const { ingredients, addIngredient, getIngredient, removeIngredient } = useIngredients()
 const { removeIngredientFromAllRecipes } = useRecipes()
 
 const showForm = ref(false)
@@ -17,6 +17,17 @@ const showForm = ref(false)
 function handleDelete(id: string) {
   removeIngredientFromAllRecipes(id)
   removeIngredient(id)
+}
+
+function handleDuplicate(id: string) {
+  const ingredient = getIngredient(id)
+  if (!ingredient) return
+  addIngredient(
+    `${ingredient.name} (${t('common.copySuffix')})`,
+    ingredient.price,
+    ingredient.quantity,
+    ingredient.unit,
+  )
 }
 
 function handleAdded() {
@@ -90,6 +101,7 @@ function handleAdded() {
           :key="ingredient.id"
           :ingredient="ingredient"
           @delete="handleDelete"
+          @duplicate="handleDuplicate"
         />
       </VueDraggable>
     </Transition>

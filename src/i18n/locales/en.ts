@@ -6,6 +6,9 @@ export default {
   common: {
     add: 'Add',
     delete: 'Delete',
+    edit: 'Edit',
+    duplicate: 'Duplicate',
+    copySuffix: 'copy',
     save: 'Save',
     cancel: 'Cancel',
     name: 'Name',

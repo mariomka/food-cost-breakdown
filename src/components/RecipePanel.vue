@@ -8,9 +8,21 @@ import RecipeForm from './RecipeForm.vue'
 import RecipeItem from './RecipeItem.vue'
 
 const { t } = useI18n()
-const { recipes, removeRecipe } = useRecipes()
+const { recipes, addRecipe, getRecipe, removeRecipe } = useRecipes()
 
 const showForm = ref(false)
+
+function handleDuplicate(id: string) {
+  const recipe = getRecipe(id)
+  if (!recipe) return
+  addRecipe(
+    `${recipe.name} (${t('common.copySuffix')})`,
+    recipe.ingredients.map((ri) => ({ ...ri })),
+    recipe.targetMargin,
+    recipe.servings,
+    recipe.targetPrice,
+  )
+}
 
 function handleAdded() {
   showForm.value = false
@@ -83,6 +95,7 @@ function handleAdded() {
           :key="recipe.id"
           :recipe="recipe"
           @delete="removeRecipe"
+          @duplicate="handleDuplicate"
         />
       </VueDraggable>
     </Transition>

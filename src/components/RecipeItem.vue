@@ -6,8 +6,14 @@ import { useIngredients } from '@/composables/useIngredients'
 import { useRecipes } from '@/composables/useRecipes'
 import { useCostCalculations } from '@/composables/useCostCalculations'
 import { useCurrencyFormat } from '@/composables/useCurrencyFormat'
-import { GripVertical } from 'lucide-vue-next'
+import { GripVertical, EllipsisVertical, Pencil, Copy, Trash2 } from 'lucide-vue-next'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
@@ -27,6 +33,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   delete: [id: string]
+  duplicate: [id: string]
 }>()
 
 const { t } = useI18n()
@@ -392,11 +399,45 @@ function handleClick() {
                     {{ recipe.name }}
                   </h3>
                 </div>
-                <span
-                  class="rounded-full bg-warm-100 px-2 py-0.5 text-[11px] font-medium tabular-nums text-warm-500 dark:bg-warm-800 dark:text-warm-400"
-                >
-                  {{ t('recipes.servingCount', { count: recipe.servings }, recipe.servings) }}
-                </span>
+                <div class="flex items-center gap-1">
+                  <span
+                    class="rounded-full bg-warm-100 px-2 py-0.5 text-[11px] font-medium tabular-nums text-warm-500 dark:bg-warm-800 dark:text-warm-400"
+                  >
+                    {{ t('recipes.servingCount', { count: recipe.servings }, recipe.servings) }}
+                  </span>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger as-child>
+                      <button
+                        class="rounded p-1 text-warm-300 opacity-0 transition-all hover:bg-warm-100 hover:text-warm-600 group-hover:opacity-100 dark:text-warm-600 dark:hover:bg-warm-700 dark:hover:text-warm-300"
+                        data-test="recipe-menu-trigger"
+                        @click.stop
+                      >
+                        <EllipsisVertical class="h-4 w-4" />
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem data-test="recipe-menu-edit" @click.stop="startEdit">
+                        <Pencil class="mr-2 h-4 w-4" />
+                        {{ t('common.edit') }}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        data-test="recipe-menu-duplicate"
+                        @click.stop="emit('duplicate', recipe.id)"
+                      >
+                        <Copy class="mr-2 h-4 w-4" />
+                        {{ t('common.duplicate') }}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        class="text-destructive focus:text-destructive"
+                        data-test="recipe-menu-delete"
+                        @click.stop="emit('delete', recipe.id)"
+                      >
+                        <Trash2 class="mr-2 h-4 w-4" />
+                        {{ t('common.delete') }}
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
               </div>
               <div class="space-y-1 text-sm">
                 <div class="flex justify-between">
