@@ -6,7 +6,7 @@ import { useIngredients } from '@/composables/useIngredients'
 import { useRecipes } from '@/composables/useRecipes'
 import { useCostCalculations } from '@/composables/useCostCalculations'
 import { useCurrencyFormat } from '@/composables/useCurrencyFormat'
-import { GripVertical, EllipsisVertical, Pencil, Copy, Trash2 } from 'lucide-vue-next'
+import { GripVertical, Pencil, Copy, Trash2 } from 'lucide-vue-next'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import {
   DropdownMenu,
@@ -158,6 +158,26 @@ function handleClick() {
   if (!editing.value) {
     startEdit()
   }
+}
+
+const menuOpen = ref(false)
+let dragStartPos = { x: 0, y: 0 }
+let wasDragged = false
+
+function onHandlePointerDown(e: PointerEvent) {
+  wasDragged = false
+  dragStartPos = { x: e.clientX, y: e.clientY }
+}
+
+function onHandlePointerMove(e: PointerEvent) {
+  const dx = Math.abs(e.clientX - dragStartPos.x)
+  const dy = Math.abs(e.clientY - dragStartPos.y)
+  if (dx > 5 || dy > 5) wasDragged = true
+}
+
+function onMenuOpenChange(val: boolean) {
+  if (val && wasDragged) return
+  menuOpen.value = val
 }
 </script>
 
@@ -385,33 +405,19 @@ function handleClick() {
             >
               <div class="mb-3 flex items-start justify-between">
                 <div class="flex items-center gap-2">
-                  <div
-                    class="drag-handle -ml-1 cursor-grab touch-none text-warm-300 transition-colors group-hover:text-warm-500 active:cursor-grabbing dark:text-warm-600 dark:group-hover:text-warm-400"
-                    @click.stop
-                  >
-                    <GripVertical class="h-4 w-4" />
-                  </div>
-                  <h3 class="font-display text-lg text-warm-800 dark:text-warm-100">
-                    {{ recipe.name }}
-                  </h3>
-                </div>
-                <div class="flex items-center gap-1">
-                  <span
-                    class="rounded-full bg-warm-100 px-2 py-0.5 text-[11px] font-medium tabular-nums text-warm-500 dark:bg-warm-800 dark:text-warm-400"
-                  >
-                    {{ t('recipes.servingCount', { count: recipe.servings }, recipe.servings) }}
-                  </span>
-                  <DropdownMenu>
+                  <DropdownMenu :open="menuOpen" @update:open="onMenuOpenChange">
                     <DropdownMenuTrigger as-child>
-                      <button
-                        class="rounded p-1 text-warm-300 opacity-0 transition-all hover:bg-warm-100 hover:text-warm-600 group-hover:opacity-100 dark:text-warm-600 dark:hover:bg-warm-700 dark:hover:text-warm-300"
+                      <div
+                        class="drag-handle -ml-1 cursor-grab touch-none text-warm-300 transition-colors group-hover:text-warm-500 active:cursor-grabbing dark:text-warm-600 dark:group-hover:text-warm-400"
                         data-test="recipe-menu-trigger"
+                        @pointerdown="onHandlePointerDown"
+                        @pointermove="onHandlePointerMove"
                         @click.stop
                       >
-                        <EllipsisVertical class="h-4 w-4" />
-                      </button>
+                        <GripVertical class="h-4 w-4" />
+                      </div>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
+                    <DropdownMenuContent align="start">
                       <DropdownMenuItem data-test="recipe-menu-edit" @click.stop="startEdit">
                         <Pencil class="mr-2 h-4 w-4" />
                         {{ t('common.edit') }}
@@ -433,7 +439,15 @@ function handleClick() {
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
+                  <h3 class="font-display text-lg text-warm-800 dark:text-warm-100">
+                    {{ recipe.name }}
+                  </h3>
                 </div>
+                <span
+                  class="rounded-full bg-warm-100 px-2 py-0.5 text-[11px] font-medium tabular-nums text-warm-500 dark:bg-warm-800 dark:text-warm-400"
+                >
+                  {{ t('recipes.servingCount', { count: recipe.servings }, recipe.servings) }}
+                </span>
               </div>
               <div class="space-y-1 text-sm">
                 <div class="flex justify-between">
