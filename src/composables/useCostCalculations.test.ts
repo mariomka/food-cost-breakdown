@@ -3,8 +3,13 @@ import { useCostCalculations } from './useCostCalculations'
 import type { Ingredient, RecipeIngredient } from '@/types'
 
 describe('useCostCalculations', () => {
-  const { getIngredientCost, getTotalCost, getCostPerServing, getSuggestedPrice } =
-    useCostCalculations()
+  const {
+    getIngredientCost,
+    getTotalCost,
+    getCostPerServing,
+    getSuggestedPrice,
+    getMarginFromPrice,
+  } = useCostCalculations()
 
   const flour: Ingredient = { id: '1', name: 'Flour', price: 2.0, quantity: 1, unit: 'kg' }
   const milk: Ingredient = { id: '2', name: 'Milk', price: 1.5, quantity: 1, unit: 'L' }
@@ -72,6 +77,28 @@ describe('useCostCalculations', () => {
 
     it('returns 0 for 100% margin', () => {
       expect(getSuggestedPrice(5, 100)).toBe(0)
+    })
+  })
+
+  describe('getMarginFromPrice', () => {
+    it('calculates margin from price and cost', () => {
+      expect(getMarginFromPrice(7, 10)).toBeCloseTo(30)
+    })
+
+    it('calculates 50% margin', () => {
+      expect(getMarginFromPrice(5, 10)).toBeCloseTo(50)
+    })
+
+    it('returns 0 for zero price', () => {
+      expect(getMarginFromPrice(5, 0)).toBe(0)
+    })
+
+    it('returns 0 for negative price', () => {
+      expect(getMarginFromPrice(5, -1)).toBe(0)
+    })
+
+    it('returns negative margin when price is below cost', () => {
+      expect(getMarginFromPrice(10, 8)).toBeCloseTo(-25)
     })
   })
 })

@@ -26,10 +26,16 @@ export function useCostCalculations() {
     return costPerServing / (1 - targetMargin / 100)
   }
 
+  function getMarginFromPrice(costPerServing: number, price: number): number {
+    if (price <= 0) return 0
+    return ((price - costPerServing) / price) * 100
+  }
+
   return {
     getIngredientCost,
     getTotalCost,
     getCostPerServing,
     getSuggestedPrice,
+    getMarginFromPrice,
   }
 }

@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 const props = defineProps<{
   recipe: Recipe
@@ -31,20 +32,32 @@ const emit = defineEmits<{
 const { t } = useI18n()
 const { ingredients, getIngredient } = useIngredients()
 const { updateRecipe } = useRecipes()
-const { getTotalCost, getCostPerServing, getSuggestedPrice } = useCostCalculations()
+const { getTotalCost, getCostPerServing, getSuggestedPrice, getMarginFromPrice } =
+  useCostCalculations()
 const { formatCurrency } = useCurrencyFormat()
+
+const isPriceMode = computed(() => (props.recipe.targetPrice ?? 0) > 0)
 
 const totalCost = computed(() => getTotalCost(props.recipe.ingredients, (id) => getIngredient(id)))
 const costPerServing = computed(() => getCostPerServing(totalCost.value, props.recipe.servings))
-const suggestedPrice = computed(() =>
-  getSuggestedPrice(costPerServing.value, props.recipe.targetMargin),
-)
+
+const displayPrice = computed(() => {
+  if (isPriceMode.value) return props.recipe.targetPrice!
+  return getSuggestedPrice(costPerServing.value, props.recipe.targetMargin)
+})
+
+const displayMargin = computed(() => {
+  if (isPriceMode.value) return getMarginFromPrice(costPerServing.value, props.recipe.targetPrice!)
+  return props.recipe.targetMargin
+})
 
 // Edit state
 const editing = ref(false)
 const editName = ref('')
 const editServings = ref<number>(1)
 const editMargin = ref<number>(0)
+const editTargetPrice = ref<number | undefined>()
+const editPricingMode = ref<'margin' | 'price'>('margin')
 const editIngredients = ref<RecipeIngredient[]>([])
 const selectedIngredientId = ref('')
 
@@ -52,9 +65,16 @@ const editTotalCost = computed(() => getTotalCost(editIngredients.value, (id) =>
 const editCostPerServing = computed(() =>
   getCostPerServing(editTotalCost.value, editServings.value || 0),
 )
-const editSuggestedPrice = computed(() =>
-  getSuggestedPrice(editCostPerServing.value, editMargin.value || 0),
-)
+
+const editSuggestedPrice = computed(() => {
+  if (editPricingMode.value === 'price') return editTargetPrice.value || 0
+  return getSuggestedPrice(editCostPerServing.value, editMargin.value || 0)
+})
+
+const editCalculatedMargin = computed(() => {
+  if (editPricingMode.value === 'margin') return editMargin.value || 0
+  return getMarginFromPrice(editCostPerServing.value, editTargetPrice.value || 0)
+})
 
 const availableIngredients = computed(() => {
   const usedIds = new Set(editIngredients.value.map((ri) => ri.ingredientId))
@@ -76,15 +96,28 @@ function startEdit() {
   editServings.value = props.recipe.servings
   editMargin.value = props.recipe.targetMargin
   editIngredients.value = props.recipe.ingredients.map((ri) => ({ ...ri }))
+  if (isPriceMode.value) {
+    editPricingMode.value = 'price'
+    editTargetPrice.value = props.recipe.targetPrice
+  } else {
+    editPricingMode.value = 'margin'
+    editTargetPrice.value = undefined
+  }
   editing.value = true
 }
 
 function saveEdit() {
   if (!editName.value.trim()) return
+
+  const saveMargin =
+    editPricingMode.value === 'margin' ? editMargin.value || 0 : editCalculatedMargin.value
+  const savePrice = editPricingMode.value === 'price' ? editTargetPrice.value || 0 : 0
+
   updateRecipe(props.recipe.id, {
     name: editName.value.trim(),
     servings: editServings.value || 1,
-    targetMargin: editMargin.value || 0,
+    targetMargin: saveMargin,
+    targetPrice: savePrice,
     ingredients: editIngredients.value,
   })
   editing.value = false
@@ -144,20 +177,29 @@ function handleClick() {
         <Input v-model="editName" data-test="recipe-edit-name" class="h-8 text-sm" />
       </div>
 
-      <div class="grid grid-cols-2 gap-2">
-        <div class="space-y-1">
-          <Label class="text-xs text-warm-500 dark:text-warm-400">{{
-            t('recipes.servings')
-          }}</Label>
-          <Input
-            v-model.number="editServings"
-            type="number"
-            min="1"
-            class="h-8 text-sm"
-            :placeholder="t('recipes.servings')"
-          />
-        </div>
-        <div class="space-y-1">
+      <div class="space-y-1">
+        <Label class="text-xs text-warm-500 dark:text-warm-400">{{ t('recipes.servings') }}</Label>
+        <Input
+          v-model.number="editServings"
+          type="number"
+          min="1"
+          class="h-8 text-sm"
+          :placeholder="t('recipes.servings')"
+        />
+      </div>
+
+      <div class="space-y-2">
+        <Tabs v-model="editPricingMode" class="w-full">
+          <TabsList class="w-full">
+            <TabsTrigger value="margin" class="flex-1" data-test="edit-pricing-mode-margin">
+              {{ t('recipes.margin') }}
+            </TabsTrigger>
+            <TabsTrigger value="price" class="flex-1" data-test="edit-pricing-mode-price">
+              {{ t('recipes.price') }}
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
+        <div v-if="editPricingMode === 'margin'" class="space-y-1">
           <Label class="text-xs text-warm-500 dark:text-warm-400">{{
             t('recipes.targetMargin')
           }}</Label>
@@ -168,6 +210,19 @@ function handleClick() {
             max="99"
             class="h-8 text-sm"
             :placeholder="t('recipes.targetMargin')"
+          />
+        </div>
+        <div v-else class="space-y-1">
+          <Label class="text-xs text-warm-500 dark:text-warm-400">{{
+            t('recipes.targetPrice')
+          }}</Label>
+          <Input
+            v-model.number="editTargetPrice"
+            type="number"
+            step="0.01"
+            min="0"
+            class="h-8 text-sm"
+            :placeholder="t('recipes.targetPrice')"
           />
         </div>
       </div>
@@ -240,13 +295,52 @@ function handleClick() {
             formatCurrency(editCostPerServing)
           }}</span>
         </div>
-        <div class="mt-1 flex justify-between border-t border-warm-200 pt-1 dark:border-warm-700">
-          <span class="font-medium text-warm-600 dark:text-warm-300">{{
-            t('recipes.suggestedPrice')
-          }}</span>
-          <span class="font-semibold tabular-nums text-amber-700 dark:text-amber-500">{{
-            formatCurrency(editSuggestedPrice)
-          }}</span>
+        <div class="mt-1 space-y-0.5 border-t border-warm-200 pt-1 dark:border-warm-700">
+          <div class="flex justify-between">
+            <span
+              class="text-warm-600 dark:text-warm-300"
+              :class="
+                editPricingMode === 'margin'
+                  ? 'font-medium'
+                  : 'italic text-warm-400 dark:text-warm-500'
+              "
+            >
+              {{ t('recipes.targetMargin') }}
+            </span>
+            <span
+              class="tabular-nums"
+              :class="[
+                editPricingMode === 'margin'
+                  ? 'font-semibold text-amber-700 dark:text-amber-500'
+                  : 'italic text-warm-400 dark:text-warm-500',
+                editCalculatedMargin < 0 ? 'text-red-600 dark:text-red-400' : '',
+              ]"
+            >
+              {{ editCalculatedMargin.toFixed(1) }}%
+            </span>
+          </div>
+          <div class="flex justify-between">
+            <span
+              class="text-warm-600 dark:text-warm-300"
+              :class="
+                editPricingMode === 'price'
+                  ? 'font-medium'
+                  : 'italic text-warm-400 dark:text-warm-500'
+              "
+            >
+              {{ t('recipes.suggestedPrice') }}
+            </span>
+            <span
+              class="tabular-nums"
+              :class="
+                editPricingMode === 'price'
+                  ? 'font-semibold text-amber-700 dark:text-amber-500'
+                  : 'italic text-warm-400 dark:text-warm-500'
+              "
+            >
+              {{ formatCurrency(editSuggestedPrice) }}
+            </span>
+          </div>
         </div>
       </div>
 
@@ -319,15 +413,50 @@ function handleClick() {
                     formatCurrency(costPerServing)
                   }}</span>
                 </div>
-                <div
-                  class="flex justify-between border-t border-warm-100 pt-1.5 dark:border-warm-700"
-                >
-                  <span class="font-medium text-warm-600 dark:text-warm-300">{{
-                    t('recipes.suggestedPrice')
-                  }}</span>
-                  <span class="font-semibold tabular-nums text-amber-700 dark:text-amber-500">{{
-                    formatCurrency(suggestedPrice)
-                  }}</span>
+                <div class="space-y-0.5 border-t border-warm-100 pt-1.5 dark:border-warm-700">
+                  <div class="flex justify-between">
+                    <span
+                      :class="
+                        isPriceMode
+                          ? 'italic text-warm-400 dark:text-warm-500'
+                          : 'font-medium text-warm-600 dark:text-warm-300'
+                      "
+                    >
+                      {{ t('recipes.targetMargin') }}
+                    </span>
+                    <span
+                      class="tabular-nums"
+                      :class="[
+                        isPriceMode
+                          ? 'italic text-warm-400 dark:text-warm-500'
+                          : 'font-semibold text-amber-700 dark:text-amber-500',
+                        displayMargin < 0 ? 'text-red-600 dark:text-red-400' : '',
+                      ]"
+                    >
+                      {{ displayMargin.toFixed(1) }}%
+                    </span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span
+                      :class="
+                        isPriceMode
+                          ? 'font-medium text-warm-600 dark:text-warm-300'
+                          : 'italic text-warm-400 dark:text-warm-500'
+                      "
+                    >
+                      {{ t('recipes.suggestedPrice') }}
+                    </span>
+                    <span
+                      class="tabular-nums"
+                      :class="
+                        isPriceMode
+                          ? 'font-semibold text-amber-700 dark:text-amber-500'
+                          : 'italic text-warm-400 dark:text-warm-500'
+                      "
+                    >
+                      {{ formatCurrency(displayPrice) }}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

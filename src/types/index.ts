@@ -19,4 +19,5 @@ export interface Recipe {
   ingredients: RecipeIngredient[]
   targetMargin: number
   servings: number
+  targetPrice?: number
 }

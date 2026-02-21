@@ -11,6 +11,7 @@ export function useRecipes() {
     ingredients: RecipeIngredient[],
     targetMargin: number,
     servings: number,
+    targetPrice: number = 0,
   ) {
     recipes.value.push({
       id: generateId(),
@@ -18,6 +19,7 @@ export function useRecipes() {
       ingredients,
       targetMargin,
       servings,
+      targetPrice,
     })
   }
 
